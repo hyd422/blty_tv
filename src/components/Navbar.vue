@@ -111,13 +111,13 @@ function onAvatarClick() {
 }
 
 .logo-bly {
-  font-size: 26px;
+  font-size: 20px;
   color: #00e700;
   letter-spacing: 1px;
 }
 
 .logo-tv {
-  font-size: 30px;
+  font-size: 22px;
   color: #ffffff;
   margin-left: 2px;
   letter-spacing: 1px;
@@ -249,10 +249,10 @@ function onAvatarClick() {
     gap: 8px;
   }
   .logo-bly {
-    font-size: 20px;
+    font-size: 16px;
   }
   .logo-tv {
-    font-size: 22px;
+    font-size: 18px;
   }
   .search-box input {
     height: 32px;
