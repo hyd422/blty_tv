@@ -90,10 +90,24 @@ const liveList = ref([
     bilibili: 'https://b23.tv/lLuSnTI'
   },
   {
+    title: '朱朱因兼任的事委屈掉小珍珠，信誉摸头安慰，哄开心，超有耐心 2024.11.07',
+    date: '2024-11-07',
+    duration: '01:42:19',
+    cover: 'assets/pictures/thumb/60.jpg',
+    bilibili: 'https://b23.tv/gzAmEix'
+  },
+  {
+    title: '不许觉得我们关系不好!这样我会觉得难受 2024.12.05',
+    date: '2024-12-05',
+    duration: '01:42:19',
+    cover: 'assets/pictures/thumb/80.jpg',
+    bilibili: 'https://b23.tv/S6Dc8Jg'
+  },
+  {
     title: '我们都在一起这么久了 2025.02.21',
     date: '2024-02-21',
     duration: '01:42:19',
-    cover: 'assets/pictures/thumb/61.jpg',
+    cover: 'assets/pictures/thumb/81.jpg',
     bilibili: 'https://b23.tv/33Hc8dv'
   },
   {
