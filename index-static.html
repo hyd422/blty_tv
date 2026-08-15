@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLTY TV - 柏里挑怡</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <header class="top-nav">
+        <div class="nav-left">
+            <div class="logo">
+                <span class="logo-blty">BLTY</span>
+                <span class="logo-tv">TV</span>
+            </div>
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" placeholder="心动穿越千载 所爱柏里挑怡" />
+                <div class="search-tags">
+                    <span>SNH48</span>
+                    <span>GNZ48</span>
+                    <span>柏欣妤</span>
+                    <span>朱怡欣</span>
+                </div>
+            </div>
+        </div>
+        <div class="nav-right">
+            <div class="nav-icons">
+                <span class="icon-btn" title="下载">⬇</span>
+                <span class="icon-btn" title="消息">✉</span>
+                <span class="icon-btn v-badge">V</span>
+            </div>
+            <div class="user-avatar">
+                <img src="https://picsum.photos/seed/useravatar/40/40" alt="用户头像" />
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- 左侧侧边栏 -->
+        <aside class="sidebar">
+            <nav class="side-menu">
+                <ul>
+                    <li class="menu-item active">
+                        <span class="menu-icon">★</span>
+                        <span class="menu-text">首页</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="menu-icon">◎</span>
+                        <span class="menu-text">你正在追</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="menu-icon">V</span>
+                        <span class="menu-text">VIP会员</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="menu-icon">🎬</span>
+                        <span class="menu-text">电视剧</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="menu-icon">🎞</span>
+                        <span class="menu-text">电影</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="menu-icon">🎤</span>
+                        <span class="menu-text">综艺</span>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- 主内容区域 -->
+        <main class="content">
+            <!-- 轮播图区域 -->
+            <section class="carousel-section">
+                <div class="carousel">
+                    <div class="carousel-bg">
+                        <img id="carouselMainImg" src="https://picsum.photos/seed/carousel1/1200/500" alt="轮播背景" />
+                        <div class="carousel-overlay"></div>
+                    </div>
+                    <div class="carousel-content">
+                        <div class="carousel-info">
+                            <h1 class="carousel-title">柏里挑怡</h1>
+                            <p class="carousel-subtitle">#金曲唯一双冠王</p>
+                            <p class="carousel-author">@柏欣妤&@朱怡欣</p>
+                        </div>
+                        <div class="carousel-thumbs">
+                            <button class="carousel-arrow prev" onclick="prevSlide()">‹</button>
+                            <div class="thumb-list">
+                                <div class="thumb-item active" onclick="goToSlide(0)">
+                                    <img src="https://picsum.photos/seed/thumb1/160/200" alt="缩略图1" />
+                                    <span class="thumb-label">双人舞</span>
+                                </div>
+                                <div class="thumb-item" onclick="goToSlide(1)">
+                                    <img src="https://picsum.photos/seed/thumb2/160/200" alt="缩略图2" />
+                                    <span class="thumb-label">金曲大赏</span>
+                                </div>
+                                <div class="thumb-item" onclick="goToSlide(2)">
+                                    <img src="https://picsum.photos/seed/thumb3/160/200" alt="缩略图3" />
+                                    <span class="thumb-label">巡演</span>
+                                </div>
+                            </div>
+                            <button class="carousel-arrow next" onclick="nextSlide()">›</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 热门推荐区域 -->
+            <section class="recommend-section">
+                <div class="section-header">
+                    <h2 class="section-title">热门推荐</h2>
+                    <div class="section-tabs">
+                        <span class="tab-divider">|</span>
+                        <span class="tab-item active" onclick="switchTab(this, 'all')">全部</span>
+                        <span class="tab-item" onclick="switchTab(this, 'tour')">双人巡演</span>
+                        <span class="tab-item" onclick="switchTab(this, 'gold')">金曲</span>
+                        <span class="tab-item" onclick="switchTab(this, 'birthday')">生日公演</span>
+                    </div>
+                </div>
+                <div class="video-grid" id="videoGrid">
+                    <!-- 视频卡片将由JS生成 -->
+                </div>
+            </section>
+
+            <!-- 底部提示 -->
+            <footer class="page-footer">
+                <div class="footer-bg-text">
+                    <span class="watermark watermark-left">ZYX</span>
+                    <span class="watermark watermark-center">B a i L i T i a o Y i</span>
+                    <span class="watermark watermark-right">BXY</span>
+                </div>
+                <p class="footer-text">✳未完待续 敬请期待✳</p>
+                <p class="footer-source">@爱吃叶绿素</p>
+            </footer>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
