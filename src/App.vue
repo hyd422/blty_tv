@@ -60,11 +60,26 @@
         />
       </main>
     </div>
+
+    <!-- 一键回顶按钮：滚动超过 400px 时显示 -->
+    <transition name="fade-slide">
+      <button
+        v-show="showBackTop"
+        class="back-to-top"
+        @click="scrollToTop"
+        title="回到顶部"
+        aria-label="回到顶部"
+      >
+        <svg viewBox="0 0 24 24" class="btt-icon" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+      </button>
+    </transition>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 import Navbar from './components/Navbar.vue'
 import Sidebar from './components/Sidebar.vue'
 import Carousel from './components/Carousel.vue'
@@ -189,6 +204,26 @@ function onPvClick(item) {
     alert(`即将播放：${item.title}`)
   }
 }
+
+// ===== 一键回顶 =====
+const showBackTop = ref(false)
+const SCROLL_THRESHOLD = 400 // 滚动超过 400px 显示按钮
+
+function onScroll() {
+  showBackTop.value = window.scrollY > SCROLL_THRESHOLD
+}
+
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' })
+}
+
+onMounted(() => {
+  window.addEventListener('scroll', onScroll, { passive: true })
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('scroll', onScroll)
+})
 </script>
 
 <style>
@@ -283,5 +318,72 @@ html, body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(0, 231, 0, 0.4);
+}
+
+/* ===== 一键回顶按钮 ===== */
+.back-to-top {
+  position: fixed;
+  right: 28px;
+  bottom: 36px;
+  z-index: 999;
+  width: 46px;
+  height: 46px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  background: linear-gradient(135deg, rgba(0, 231, 0, 0.95), rgba(0, 190, 0, 0.95));
+  color: #ffffff;
+  box-shadow:
+    0 4px 18px rgba(0, 231, 0, 0.35),
+    0 0 0 4px rgba(0, 231, 0, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.back-to-top:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 8px 24px rgba(0, 231, 0, 0.45),
+    0 0 0 4px rgba(0, 231, 0, 0.14);
+}
+
+.back-to-top:active {
+  transform: translateY(-1px) scale(0.96);
+}
+
+.btt-icon {
+  width: 22px;
+  height: 22px;
+}
+
+/* 出现 / 消失 过渡 */
+.fade-slide-enter-active,
+.fade-slide-leave-active {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fade-slide-enter-from {
+  opacity: 0;
+  transform: translateY(12px) scale(0.9);
+}
+
+.fade-slide-leave-to {
+  opacity: 0;
+  transform: translateY(12px) scale(0.9);
+}
+
+@media (max-width: 640px) {
+  .back-to-top {
+    right: 16px;
+    bottom: 24px;
+    width: 40px;
+    height: 40px;
+  }
+  .btt-icon {
+    width: 18px;
+    height: 18px;
+  }
 }
 </style>
