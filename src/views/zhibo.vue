@@ -93,14 +93,14 @@ const liveList = ref([
     title: '朱朱因兼任的事委屈掉小珍珠，信誉摸头安慰，哄开心，超有耐心 2024.11.07',
     date: '2024-11-07',
     duration: '01:42:19',
-    cover: 'assets/pictures/thumb/80.jpg',
+    cover: 'assets/pictures/thumb/81.jpg',
     bilibili: 'https://b23.tv/gzAmEix'
   },
   {
     title: '不许觉得我们关系不好!这样我会觉得难受 2024.12.05',
     date: '2024-12-05',
     duration: '01:42:19',
-    cover: 'assets/pictures/thumb/81.jpg',
+    cover: 'assets/pictures/thumb/80.jpg',
     bilibili: 'https://b23.tv/S6Dc8Jg'
   },
   {
