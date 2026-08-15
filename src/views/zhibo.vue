@@ -83,6 +83,13 @@ const liveList = ref([
     bilibili: 'https://b23.tv/CYNNb3G'
   },
   {
+    title: '猪猪生日 暴雨航班取消柏柏依旧到达 2024.04.22',
+    date: '2024-04-22',
+    duration: '02:20:51',
+    cover: 'assets/pictures/thumb/82.jpg',
+    bilibili: 'https://b23.tv/1nu52cj'
+  },
+  {
     title: '小学生吵架她不懂 很好品的一次直播 2024.06.17',
     date: '2024-06-17',
     duration: '01:42:19',

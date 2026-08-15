@@ -2,7 +2,7 @@
   <div class="koudai-page">
     <div class="page-header">
       <h2 class="page-title">口袋爱 / 时间线整理</h2>
-      <span class="page-subtitle">@柏欣妤 & @朱怡欣 口袋48互动时间线</span>
+      <span class="page-subtitle">@柏欣妤 & @朱怡欣 口袋48and日常互动时间线</span>
     </div>
 
     <div class="koudai-list">
@@ -38,28 +38,20 @@ const emit = defineEmits(['koudai-click'])
 // 4 个口袋爱 / 时间线整理板块，点击跳转微博
 const koudaiList = ref([
   {
-    title: '口袋48 初次互动',
-    date: '2021-05-12',
-    desc: '两位在口袋房间第一次公开互动，缘分的起点。',
-    link: 'https://weibo.com/'
+    title: '22-24年6月的整理',
+    link: 'https://www.douban.com/link2/?url=https%3A%2F%2Fweibo.com%2Fu%2F7929103261'
   },
   {
-    title: '深夜连麦合辑',
-    date: '2022-08-26',
-    desc: '凌晨两点的口袋房间，那些没人打扰的悄悄话。',
-    link: 'https://weibo.com/'
+    title: '22年时间轴',
+    link: 'https://www.douban.com/link2/?url=http%3A%2F%2Ft.cn%2FA6EJQ8ry&link2key=61804e853e'
   },
   {
-    title: '生日祝福时间线',
-    date: '2023-02-27',
-    desc: '每一年为对方零点准时送上的生日祝福，从未缺席。',
-    link: 'https://weibo.com/'
+    title: '口袋爱补档',
+    link: 'https://www.douban.com/link2/?url=https%3A%2F%2Fweibo.com%2Fu%2F2015421120'
   },
   {
-    title: '周年纪念日汇总',
-    date: '2026-02-27',
-    desc: '一周年、二周年、三周年、四周年，我们一起走过的路。',
-    link: 'https://weibo.com/'
+    title: '24年6月至今整理',
+    link: 'https://m.weibo.cn/c/wbox?id=wqh75bb2ni&appName=%E6%96%87%E7%AB%A0%E4%B8%93%E6%A0%8F&appIcon=&topNavMode=0&cid=4652655454923523&click_from=share'
   }
 ])
 </script>
