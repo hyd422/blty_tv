@@ -43,26 +43,29 @@ import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 
 const emit = defineEmits(['slide-change', 'thumb-click'])
 
+const CACHE_VER = 'v2'
+const cacheBust = (src) => `${src}?${CACHE_VER}`
+
 const carouselData = [
   {
-    mainImg: 'assets/pictures/35.jpg',
-    thumbImg: 'assets/pictures/35.jpg',
+    mainImg: cacheBust('assets/pictures/38.jpg'),
+    thumbImg: cacheBust('assets/pictures/35.jpg'),
     label: '心跳花火武汉站',
     title: '柏里挑怡',
     subtitle: '#金曲唯一双冠王',
     author: '@柏欣妤&@朱怡欣'
   },
   {
-    mainImg: 'assets/pictures/34.jpg',
-    thumbImg: 'assets/pictures/34.jpg',
+    mainImg: cacheBust('assets/pictures/39.jpg'),
+    thumbImg: cacheBust('assets/pictures/34.jpg'),
     label: '心跳花火厦门站',
     title: '柏里挑怡',
     subtitle: '#金曲大赏双连冠',
     author: '@柏欣妤&@朱怡欣'
   },
   {
-    mainImg: 'assets/pictures/36.jpg',
-    thumbImg: 'assets/pictures/36.jpg',
+    mainImg: cacheBust('assets/pictures/37.jpg'),
+    thumbImg: cacheBust('assets/pictures/36.jpg'),
     label: '私人信号',
     title: '柏里挑怡',
     subtitle: '#双人巡演敬请期待',
@@ -126,7 +129,7 @@ onBeforeUnmount(() => {
   position: relative;
   border-radius: 14px;
   overflow: hidden;
-  height: 320px;
+  height: 420px;
 }
 
 .carousel-bg {
@@ -135,13 +138,16 @@ onBeforeUnmount(() => {
   left: 0;
   right: 0;
   bottom: 0;
+  background: #000 center/cover no-repeat;
 }
 
 .carousel-bg img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: brightness(0.55);
+  object-position: center center;
+  display: block;
+  filter: brightness(0.78) saturate(1.05);
 }
 
 .fade-in {
@@ -149,8 +155,8 @@ onBeforeUnmount(() => {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0.6; }
-  to { opacity: 1; }
+  from { opacity: 0.6; transform: scale(1.02); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 .carousel-overlay {
@@ -161,10 +167,10 @@ onBeforeUnmount(() => {
   bottom: 0;
   background: linear-gradient(
     90deg,
-    rgba(0, 0, 0, 0.85) 0%,
-    rgba(0, 0, 0, 0.5) 40%,
-    rgba(0, 0, 0, 0.2) 70%,
-    rgba(0, 0, 0, 0.4) 100%
+    rgba(0, 0, 0, 0.55) 0%,
+    rgba(0, 0, 0, 0.25) 40%,
+    rgba(0, 0, 0, 0.1) 70%,
+    rgba(0, 0, 0, 0.35) 100%
   );
 }
 
