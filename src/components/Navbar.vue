@@ -86,7 +86,9 @@ function onAvatarClick() {
   left: 0;
   right: 0;
   height: 56px;
-  background: linear-gradient(180deg, #1a1a1a 0%, #111111 100%);
+  background: rgba(17, 17, 17, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -242,6 +244,8 @@ function onAvatarClick() {
 
 @media (max-width: 480px) {
   .top-nav {
+    position: fixed;
+    top: 0;
     padding: 0 12px;
   }
   .nav-left {

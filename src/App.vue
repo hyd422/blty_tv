@@ -240,6 +240,14 @@ html, body {
   color: #ffffff;
   min-height: 100vh;
   overflow-x: hidden;
+  /* iOS Safari: 防止 fixed 元素随滚动跳动 */
+  -webkit-overflow-scrolling: touch;
+}
+
+/* app-root 接管 overflow-x，避免 body 上设置导致 iOS fixed 失效 */
+.app-root {
+  overflow-x: hidden;
+  min-height: 100vh;
 }
 
 #app {
