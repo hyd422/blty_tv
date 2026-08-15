@@ -36,104 +36,104 @@ const liveList = ref([
     title: '你怎么会是坏孩子呢 2022.03.12',
     date: '2022-03-12',
     duration: '01:51:51',
-    cover: '/assets/pictures/53.jpg',
+    cover: 'assets/pictures/53.jpg',
     bilibili: 'https://b23.tv/TSGCtZ8'
   },
   {
     title: '一周年连麦 2023.02.27',
     date: '2023-02-27',
     duration: '01:51:51',
-    cover: '/assets/pictures/54.jpg',
+    cover: 'assets/pictures/54.jpg',
     bilibili: 'https://b23.tv/Ru335Oj'
   },
   {
     title: '拼乐高 2023.03.15',
     date: '2023-03-15',
     duration: '01:51:51',
-    cover: '/assets/pictures/55.jpg',
+    cover: 'assets/pictures/55.jpg',
     bilibili: 'https://b23.tv/YKZ2Fcw'
   },
   {
     title: '妆容互换互相化妆 2023.04.20',
     date: '2023-04-20',
     duration: '01:51:51',
-    cover: '/assets/pictures/56.jpg',   
+    cover: 'assets/pictures/56.jpg',   
     bilibili: 'https://b23.tv/z3tS57M'
   },
   {
     title: '现在雪地可以踩吗？ 2023.05.30',
     date: '2023-05-30',
     duration: '01:51:51',
-    cover: '/assets/pictures/57.jpg',
+    cover: 'assets/pictures/57.jpg',
     bilibili: 'https://b23.tv/f6Y34ar'
   },
   {
     title: '流在你身上的眼泪太多了 2024.01.13',
     date: '2024-01-13',
     duration: '01:51:51',
-    cover: '/assets/pictures/58.jpg',
+    cover: 'assets/pictures/58.jpg',
     bilibili: ' https://b23.tv/X1YRciE'
   },
   {
     title: '二周年双播 2024.02.27',
     date: '2024-02-27',
     duration: '01:51:51',
-    cover: '/assets/pictures/59.jpg',
+    cover: 'assets/pictures/59.jpg',
     bilibili: 'https://b23.tv/CYNNb3G'
   },
   {
     title: '小学生吵架她不懂 很好品的一次直播 2024.06.17',
     date: '2024-06-17',
     duration: '01:42:19',
-    cover: '/assets/pictures/60.jpg',
+    cover: 'assets/pictures/60.jpg',
     bilibili: 'https://b23.tv/lLuSnTI'
   },
   {
     title: '我们都在一起这么久了 2025.02.21',
     date: '2024-02-21',
     duration: '01:42:19',
-    cover: '/assets/pictures/61.jpg',
+    cover: 'assets/pictures/61.jpg',
     bilibili: 'https://b23.tv/33Hc8dv'
   },
   {
     title: '三周年双播 2025.02.26',
     date: '2025-02-26',
     duration: '01:42:19',
-    cover: '/assets/pictures/62.jpg',
+    cover: 'assets/pictures/62.jpg',
     bilibili: 'https://b23.tv/B88SeAD'
   },
   {
     title: '希望bxy每年都陪我过生日 love you 2025.04.22',
     date: '2025-04-22',
     duration: '01:42:19',
-    cover: '/assets/pictures/63.jpg',
+    cover: 'assets/pictures/63.jpg',
     bilibili: 'https://b23.tv/VWaS1Jj'
   },
   {
     title: '我是你的星星是么 2026.01.25',
     date: '2026-01-25',
     duration: '01:42:19',
-    cover: '/assets/pictures/64.jpg',
+    cover: 'assets/pictures/64.jpg',
     bilibili: 'https://b23.tv/zE6R5mJ'
   },
   {
     title: '四周年双播 2026.02.27',
     date: '2026-02-27',
     duration: '01:42:19',
-    cover: '/assets/pictures/65.jpg',
+    cover: 'assets/pictures/65.jpg',
     bilibili: 'https://b23.tv/20aDWaZ'
   },
   {
     title: '因为世界就在这儿啊 2026.04.22',
     date: '2026-04-22',
     duration: '01:42:19',
-    cover: '/assets/pictures/66.jpg',
+    cover: 'assets/pictures/66.jpg',
     bilibili: 'https://b23.tv/GR92PTA'
   }
 ])
 
 function onImgError(e) {
-  e.target.src = '/assets/pictures/main.jpg'
+  e.target.src = 'assets/pictures/main.jpg'
 }
 
 function onLiveClick(item) {

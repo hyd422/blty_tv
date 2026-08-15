@@ -45,24 +45,24 @@ const emit = defineEmits(['slide-change', 'thumb-click'])
 
 const carouselData = [
   {
-    mainImg: '/assets/pictures/38.jpg',
-    thumbImg: '/assets/pictures/35.jpg',
+    mainImg: 'assets/pictures/38.jpg',
+    thumbImg: 'assets/pictures/35.jpg',
     label: '心跳花火武汉站',
     title: '柏里挑怡',
     subtitle: '#金曲唯一双冠王',
     author: '@柏欣妤&@朱怡欣'
   },
   {
-    mainImg: '/assets/pictures/39.jpg',
-    thumbImg: '/assets/pictures/34.jpg',
+    mainImg: 'assets/pictures/39.jpg',
+    thumbImg: 'assets/pictures/34.jpg',
     label: '心跳花火厦门站',
     title: '柏里挑怡',
     subtitle: '#金曲大赏双连冠',
     author: '@柏欣妤&@朱怡欣'
   },
   {
-    mainImg: '/assets/pictures/37.jpg',
-    thumbImg: '/assets/pictures/36.jpg',
+    mainImg: 'assets/pictures/37.jpg',
+    thumbImg: 'assets/pictures/36.jpg',
     label: '私人讯号杭州站',
     title: '柏里挑怡',
     subtitle: '#8.22杭州双人巡演敬请期待',

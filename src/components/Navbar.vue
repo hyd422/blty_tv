@@ -53,7 +53,7 @@ const navIcons = [
   { icon: '✉', title: '消息' },
   { icon: 'V', title: 'VIP', vBadge: true }
 ]
-const userAvatar = '/assets/pictures/33.jpg'
+const userAvatar = 'assets/pictures/33.jpg'
 
 function onLogoClick() {
   emit('logo-click')

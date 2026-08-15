@@ -50,39 +50,39 @@ const PAGE_SIZE = 9 // 每次加载9张
 const bv = (keyword) => `https://search.bilibili.com/all?keyword=${encodeURIComponent('柏里挑怡 ' + keyword)}`
 
 const videoDataAll = [
-  { title: '不安星',       img: '/assets/pictures/1.jpg',  bilibili: bv('不安星') },
-  { title: '夏之回忆',     img: '/assets/pictures/2.jpg',  bilibili: bv('夏之回忆') },
-  { title: '牛奶香槟',     img: '/assets/pictures/3.jpg',  bilibili: bv('牛奶香槟') },
-  { title: '单向镜面',     img: '/assets/pictures/4.jpg',  bilibili: bv('单向镜面') },
-  { title: '升温',         img: '/assets/pictures/5.jpg',  bilibili: bv('升温') },
-  { title: 'First Love',   img: '/assets/pictures/6.jpg',  bilibili: bv('First Love') },
-  { title: '变量',         img: '/assets/pictures/7.jpg',  bilibili: bv('变量') },
-  { title: '月光下',       img: '/assets/pictures/8.jpg',  bilibili: bv('月光下') },
-  { title: '暖暖',         img: '/assets/pictures/9.jpg',  bilibili: bv('暖暖') },
-  { title: 'Whistle',      img: '/assets/pictures/10.jpg', bilibili: bv('Whistle') },
-  { title: '恋爱告急',     img: '/assets/pictures/11.jpg', bilibili: bv('恋爱告急') },
-  { title: '完美犯罪',     img: '/assets/pictures/12.jpg', bilibili: bv('完美犯罪') },
-  { title: '爱未央',       img: '/assets/pictures/13.jpg', bilibili: bv('爱未央') },
-  { title: '噗通噗通',     img: '/assets/pictures/14.jpg', bilibili: bv('噗通噗通') },
-  { title: '完美超载',     img: '/assets/pictures/15.jpg', bilibili: bv('完美超载') },
-  { title: '粉红狙击手',   img: '/assets/pictures/16.jpg', bilibili: bv('粉红狙击手') },
-  { title: '蠢蠢',         img: '/assets/pictures/17.jpg', bilibili: bv('蠢蠢') },
-  { title: '专属座位',     img: '/assets/pictures/18.jpg', bilibili: bv('专属座位') },
-  { title: '圈圈点点',     img: '/assets/pictures/19.jpg', bilibili: bv('圈圈点点') },
-  { title: 'Spy',          img: '/assets/pictures/20.jpg', bilibili: bv('Spy') },
-  { title: 'Lookout',      img: '/assets/pictures/21.jpg', bilibili: bv('Lookout') },
-  { title: 'White',        img: '/assets/pictures/22.jpg', bilibili: bv('White') },
-  { title: '降落伞',       img: '/assets/pictures/23.jpg', bilibili: bv('降落伞') },
-  { title: '听到请回答',   img: '/assets/pictures/24.jpg', bilibili: bv('听到请回答') },
-  { title: '双人舞',       img: '/assets/pictures/25.jpg', bilibili: bv('双人舞') },
-  { title: '四季的爱恋',   img: '/assets/pictures/26.jpg', bilibili: bv('四季的爱恋') },
-  { title: 'High',         img: '/assets/pictures/27.jpg', bilibili: bv('High') },
-  { title: '调和色',       img: '/assets/pictures/28.jpg', bilibili: bv('调和色') },
-  { title: '忧闭',         img: '/assets/pictures/29.jpg', bilibili: bv('忧闭') },
-  { title: 'My Boy',       img: '/assets/pictures/30.jpg', bilibili: bv('My Boy') },
-  { title: 'City',         img: '/assets/pictures/31.jpg', bilibili: bv('City') },
-  { title: '水蒸气',       img: '/assets/pictures/32.jpg', bilibili: bv('水蒸气') },
-  { title: '暗示',         img: '/assets/pictures/33.jpg', bilibili: bv('暗示') },
+  { title: '不安星',       img: 'assets/pictures/1.jpg',  bilibili: bv('不安星') },
+  { title: '夏之回忆',     img: 'assets/pictures/2.jpg',  bilibili: bv('夏之回忆') },
+  { title: '牛奶香槟',     img: 'assets/pictures/3.jpg',  bilibili: bv('牛奶香槟') },
+  { title: '单向镜面',     img: 'assets/pictures/4.jpg',  bilibili: bv('单向镜面') },
+  { title: '升温',         img: 'assets/pictures/5.jpg',  bilibili: bv('升温') },
+  { title: 'First Love',   img: 'assets/pictures/6.jpg',  bilibili: bv('First Love') },
+  { title: '变量',         img: 'assets/pictures/7.jpg',  bilibili: bv('变量') },
+  { title: '月光下',       img: 'assets/pictures/8.jpg',  bilibili: bv('月光下') },
+  { title: '暖暖',         img: 'assets/pictures/9.jpg',  bilibili: bv('暖暖') },
+  { title: 'Whistle',      img: 'assets/pictures/10.jpg', bilibili: bv('Whistle') },
+  { title: '恋爱告急',     img: 'assets/pictures/11.jpg', bilibili: bv('恋爱告急') },
+  { title: '完美犯罪',     img: 'assets/pictures/12.jpg', bilibili: bv('完美犯罪') },
+  { title: '爱未央',       img: 'assets/pictures/13.jpg', bilibili: bv('爱未央') },
+  { title: '噗通噗通',     img: 'assets/pictures/14.jpg', bilibili: bv('噗通噗通') },
+  { title: '完美超载',     img: 'assets/pictures/15.jpg', bilibili: bv('完美超载') },
+  { title: '粉红狙击手',   img: 'assets/pictures/16.jpg', bilibili: bv('粉红狙击手') },
+  { title: '蠢蠢',         img: 'assets/pictures/17.jpg', bilibili: bv('蠢蠢') },
+  { title: '专属座位',     img: 'assets/pictures/18.jpg', bilibili: bv('专属座位') },
+  { title: '圈圈点点',     img: 'assets/pictures/19.jpg', bilibili: bv('圈圈点点') },
+  { title: 'Spy',          img: 'assets/pictures/20.jpg', bilibili: bv('Spy') },
+  { title: 'Lookout',      img: 'assets/pictures/21.jpg', bilibili: bv('Lookout') },
+  { title: 'White',        img: 'assets/pictures/22.jpg', bilibili: bv('White') },
+  { title: '降落伞',       img: 'assets/pictures/23.jpg', bilibili: bv('降落伞') },
+  { title: '听到请回答',   img: 'assets/pictures/24.jpg', bilibili: bv('听到请回答') },
+  { title: '双人舞',       img: 'assets/pictures/25.jpg', bilibili: bv('双人舞') },
+  { title: '四季的爱恋',   img: 'assets/pictures/26.jpg', bilibili: bv('四季的爱恋') },
+  { title: 'High',         img: 'assets/pictures/27.jpg', bilibili: bv('High') },
+  { title: '调和色',       img: 'assets/pictures/28.jpg', bilibili: bv('调和色') },
+  { title: '忧闭',         img: 'assets/pictures/29.jpg', bilibili: bv('忧闭') },
+  { title: 'My Boy',       img: 'assets/pictures/30.jpg', bilibili: bv('My Boy') },
+  { title: 'City',         img: 'assets/pictures/31.jpg', bilibili: bv('City') },
+  { title: '水蒸气',       img: 'assets/pictures/32.jpg', bilibili: bv('水蒸气') },
+  { title: '暗示',         img: 'assets/pictures/33.jpg', bilibili: bv('暗示') },
 ]
 
 // ====== 懒加载状态 ======
@@ -128,7 +128,7 @@ onBeforeUnmount(() => {
 })
 
 function onImgError(e) {
-  e.target.src = '/assets/pictures/main.jpg'
+  e.target.src = 'assets/pictures/main.jpg'
 }
 
 function onVideoClick(video) {

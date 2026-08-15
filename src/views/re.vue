@@ -69,19 +69,19 @@ const activeType = ref('all')
 
 // Re 视频列表
 const reList = ref([
-  { title: '【柏里挑怡1.0 reaction】投稿人用真情侣的名头吸引我 我上当了 就这么简单', type: 'blty', up: '关西以北', views: '12.3万', duration: '15:42', cover: '/assets/pictures/40.jpg', bilibili: 'https://b23.tv/Fc7hSVO' },
-  { title: '【柏里挑怡2.0 充电reaction】零人告诉我会如此刺激 单身美丽女性我们走吧 别被“霸凌”', type: 'blty', up: '关西以北', views: '8.7万', duration: '22:10', cover: '/assets/pictures/41.jpg', bilibili: 'https://b23.tv/kruNDPC' },
-  { title: '【柏里挑怡3.0 充电reaction】试图从一个个视频片段，寻找她们“距离”的变化', type: 'blty', up: '关西以北', views: '25.6万', duration: '18:55', cover: '/assets/pictures/42.jpg', bilibili: 'https://b23.tv/mXuspge' },
-  { title: '【充电专场|柏里挑怡Reaction】全程高甜，给我们看这个是否太超过！原来你们平时吃这么好！好多视频的bgm好好听~', type: 'blty', up: '小同在蔗ing', views: '5.4万', duration: '45:30', cover: '/assets/pictures/43.jpg', bilibili: 'https://b23.tv/nc2M2jX' },
-  { title: '【柏里挑怡reaction】我清楚得知道有多远的距离，也清楚得知道我有多想靠近', type: 'blty', up: '凌扶郁', views: '16.8万', duration: '12:08', cover: '/assets/pictures/44.jpg', bilibili: 'https://b23.tv/Grjh6rB' },
-  { title: '【韩娱路人的reaction之塞纳河cp合集（上）】舞台惊人就算了，怎么感觉cp都好真，果然塞纳河只玩真实的是吧', type: 'blty', up: '唯爱美女的小酒鬼', views: '9.1万', duration: '28:47', cover: '/assets/pictures/45.jpg', bilibili: 'https://b23.tv/Uxq7KCF' },
-  { title: '【(更新至26.8.14) 【柏里挑怡｜Reaction】路人和朋友一起初看『柏欣妤×朱怡欣』，尖叫连连，话唠预警，俩人早期的直播简直不要太好笑', type: 'blty', up: 'Promenad-南安', views: '3.8万', duration: '20:15', cover: '/assets/pictures/46.jpg', bilibili: 'https://b23.tv/9aTbobi' },
-  { title: '【加急充电专场柏里挑怡2.0】路人第二次reaction柏里挑怡，念信好甜完全小说来的!私下完全小学生来的!但是是互相安慰互相陪伴互相鼓励的存在', type: 'blty', up: '小小龟', views: '14.2万', duration: '16:33', cover: '/assets/pictures/47.jpg', bilibili: 'https://b23.tv/UvX1nSH' },
-  { title: '【充电场｜柏里挑怡reaction】就这样捂住耳朵抱紧彼此往前冲吧', type: 'blty', up: '奶芙泡奶', views: '7.6万', duration: '19:02', cover: '/assets/pictures/48.jpg', bilibili: 'https://b23.tv/0AzjfwN' },
-  { title: '【粉丝安利｜柏里挑怡 reaction】从来没嗑过这么真的，诡秘你听我说，这次真的不一样！', type: 'blty', up: '找找早上好呀', views: '11.9万', duration: '14:28', cover: '/assets/pictures/49.jpg', bilibili: 'https://b23.tv/IcvxEn0' },
-  { title: '【韩娱人reaction】这是舞台上！！不是房间里|柏里挑怡（柏欣妤&朱怡欣）cp向reaction', type: 'blty', up: 're完这个世界', views: '4.2万', duration: '32:18', cover: '/assets/pictures/50.jpg', bilibili: 'https://b23.tv/KmxPX5u' },
-  { title: '【充电专场朱怡欣1.0】路人第一次看朱怡欣。美的太超过了!浓妆s感超重，21年简直白月光，我超级爱。光颜值我就看的受不了了!但舞蹈超级好。瓜猪花猪都很好!', type: 'zyx', up: '小小龟', views: '21.5万', duration: '17:44', cover: '/assets/pictures/51.jpg', bilibili: 'https://b23.tv/g4ddGdy' },
-  { title: '【充电专场柏欣妤2.0mc版（含cp向）】看到了柏欣妤更活泼的一面，呆但是又某种程度蛮聪明的小狗。哈哈，但脑回路清奇到真是难以理解了。', type: 'bxy', up: '小小龟', views: '21.5万', duration: '17:44', cover: '/assets/pictures/52.jpg', bilibili: 'https://b23.tv/JFuOAqz' }
+  { title: '【柏里挑怡1.0 reaction】投稿人用真情侣的名头吸引我 我上当了 就这么简单', type: 'blty', up: '关西以北', views: '12.3万', duration: '15:42', cover: 'assets/pictures/40.jpg', bilibili: 'https://b23.tv/Fc7hSVO' },
+  { title: '【柏里挑怡2.0 充电reaction】零人告诉我会如此刺激 单身美丽女性我们走吧 别被“霸凌”', type: 'blty', up: '关西以北', views: '8.7万', duration: '22:10', cover: 'assets/pictures/41.jpg', bilibili: 'https://b23.tv/kruNDPC' },
+  { title: '【柏里挑怡3.0 充电reaction】试图从一个个视频片段，寻找她们“距离”的变化', type: 'blty', up: '关西以北', views: '25.6万', duration: '18:55', cover: 'assets/pictures/42.jpg', bilibili: 'https://b23.tv/mXuspge' },
+  { title: '【充电专场|柏里挑怡Reaction】全程高甜，给我们看这个是否太超过！原来你们平时吃这么好！好多视频的bgm好好听~', type: 'blty', up: '小同在蔗ing', views: '5.4万', duration: '45:30', cover: 'assets/pictures/43.jpg', bilibili: 'https://b23.tv/nc2M2jX' },
+  { title: '【柏里挑怡reaction】我清楚得知道有多远的距离，也清楚得知道我有多想靠近', type: 'blty', up: '凌扶郁', views: '16.8万', duration: '12:08', cover: 'assets/pictures/44.jpg', bilibili: 'https://b23.tv/Grjh6rB' },
+  { title: '【韩娱路人的reaction之塞纳河cp合集（上）】舞台惊人就算了，怎么感觉cp都好真，果然塞纳河只玩真实的是吧', type: 'blty', up: '唯爱美女的小酒鬼', views: '9.1万', duration: '28:47', cover: 'assets/pictures/45.jpg', bilibili: 'https://b23.tv/Uxq7KCF' },
+  { title: '【(更新至26.8.14) 【柏里挑怡｜Reaction】路人和朋友一起初看『柏欣妤×朱怡欣』，尖叫连连，话唠预警，俩人早期的直播简直不要太好笑', type: 'blty', up: 'Promenad-南安', views: '3.8万', duration: '20:15', cover: 'assets/pictures/46.jpg', bilibili: 'https://b23.tv/9aTbobi' },
+  { title: '【加急充电专场柏里挑怡2.0】路人第二次reaction柏里挑怡，念信好甜完全小说来的!私下完全小学生来的!但是是互相安慰互相陪伴互相鼓励的存在', type: 'blty', up: '小小龟', views: '14.2万', duration: '16:33', cover: 'assets/pictures/47.jpg', bilibili: 'https://b23.tv/UvX1nSH' },
+  { title: '【充电场｜柏里挑怡reaction】就这样捂住耳朵抱紧彼此往前冲吧', type: 'blty', up: '奶芙泡奶', views: '7.6万', duration: '19:02', cover: 'assets/pictures/48.jpg', bilibili: 'https://b23.tv/0AzjfwN' },
+  { title: '【粉丝安利｜柏里挑怡 reaction】从来没嗑过这么真的，诡秘你听我说，这次真的不一样！', type: 'blty', up: '找找早上好呀', views: '11.9万', duration: '14:28', cover: 'assets/pictures/49.jpg', bilibili: 'https://b23.tv/IcvxEn0' },
+  { title: '【韩娱人reaction】这是舞台上！！不是房间里|柏里挑怡（柏欣妤&朱怡欣）cp向reaction', type: 'blty', up: 're完这个世界', views: '4.2万', duration: '32:18', cover: 'assets/pictures/50.jpg', bilibili: 'https://b23.tv/KmxPX5u' },
+  { title: '【充电专场朱怡欣1.0】路人第一次看朱怡欣。美的太超过了!浓妆s感超重，21年简直白月光，我超级爱。光颜值我就看的受不了了!但舞蹈超级好。瓜猪花猪都很好!', type: 'zyx', up: '小小龟', views: '21.5万', duration: '17:44', cover: 'assets/pictures/51.jpg', bilibili: 'https://b23.tv/g4ddGdy' },
+  { title: '【充电专场柏欣妤2.0mc版（含cp向）】看到了柏欣妤更活泼的一面，呆但是又某种程度蛮聪明的小狗。哈哈，但脑回路清奇到真是难以理解了。', type: 'bxy', up: '小小龟', views: '21.5万', duration: '17:44', cover: 'assets/pictures/52.jpg', bilibili: 'https://b23.tv/JFuOAqz' }
 ])
 
 const filteredList = computed(() => {
@@ -95,7 +95,7 @@ function getTypeLabel(key) {
 }
 
 function onImgError(e) {
-  e.target.src = '/assets/pictures/main.jpg'
+  e.target.src = 'assets/pictures/main.jpg'
 }
 
 function onReClick(item) {
