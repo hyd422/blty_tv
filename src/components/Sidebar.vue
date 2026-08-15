@@ -103,4 +103,41 @@ function onMenuClick(idx) {
     display: none;
   }
 }
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    height: 48px;
+    padding-top: 0;
+    top: 56px;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  .side-menu ul {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .side-menu ul::-webkit-scrollbar {
+    display: none;
+  }
+  .menu-item {
+    flex-shrink: 0;
+    padding: 8px 14px;
+    border-left: none;
+    border-bottom: 2px solid transparent;
+    font-size: 13px;
+    gap: 6px;
+    white-space: nowrap;
+  }
+  .menu-text {
+    display: inline;
+  }
+  .menu-item.active {
+    border-left: none;
+    border-bottom-color: #00e700;
+  }
+}
 </style>

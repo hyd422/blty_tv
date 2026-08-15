@@ -329,6 +329,16 @@ function onPvClick(item) {
 
 @media (max-width: 640px) {
   .pv-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px 12px;
+  }
+  .page-title {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 400px) {
+  .pv-grid {
     grid-template-columns: 1fr;
   }
 }

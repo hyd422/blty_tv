@@ -222,6 +222,24 @@ html, body {
   min-height: 100vh;
 }
 
+@media (max-width: 768px) {
+  .main-container {
+    flex-direction: column;
+    padding-top: 104px;
+  }
+  .content {
+    margin-left: 0;
+    padding: 16px 12px 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-container {
+    flex-direction: column;
+    padding-top: 104px;
+  }
+}
+
 /* ===== 主内容区 ===== */
 .content {
   flex: 1;
@@ -235,9 +253,16 @@ html, body {
   }
 }
 
+@media (max-width: 768px) {
+  .content {
+    margin-left: 0;
+    padding: 16px 12px 32px;
+  }
+}
+
 @media (max-width: 640px) {
   .content {
-    padding: 16px;
+    padding: 12px 10px 28px;
   }
 }
 

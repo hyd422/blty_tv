@@ -239,4 +239,44 @@ function onAvatarClick() {
     display: none;
   }
 }
+
+@media (max-width: 480px) {
+  .top-nav {
+    padding: 0 12px;
+  }
+  .nav-left {
+    max-width: 60%;
+    gap: 8px;
+  }
+  .logo-bly {
+    font-size: 20px;
+  }
+  .logo-tv {
+    font-size: 22px;
+  }
+  .search-box input {
+    height: 32px;
+    font-size: 12px;
+    padding: 0 12px 0 32px;
+  }
+  .search-icon {
+    font-size: 12px;
+    left: 10px;
+  }
+  .nav-right {
+    gap: 8px;
+  }
+  .nav-icons {
+    gap: 4px;
+  }
+  .icon-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+  .user-avatar img {
+    width: 30px;
+    height: 30px;
+  }
+}
 </style>

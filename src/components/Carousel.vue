@@ -308,16 +308,64 @@ onBeforeUnmount(() => {
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .carousel {
-    height: 280px;
+    height: 320px;
   }
-  .thumb-item {
-    width: 80px;
-    height: 100px;
+  .carousel-content {
+    padding: 20px 16px;
   }
   .carousel-title {
-    font-size: 28px;
+    font-size: 30px;
+    letter-spacing: 2px;
+  }
+  .carousel-subtitle {
+    font-size: 14px;
+  }
+  .carousel-author {
+    font-size: 12px;
+  }
+  .thumb-item {
+    width: 72px;
+    height: 90px;
+  }
+  .thumb-label {
+    font-size: 10px;
+    padding: 4px 4px;
+  }
+  .carousel-arrow {
+    width: 26px;
+    height: 44px;
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel {
+    height: 260px;
+  }
+  .carousel-title {
+    font-size: 24px;
+    letter-spacing: 1px;
+  }
+  .carousel-subtitle {
+    font-size: 12px;
+  }
+  .thumb-item {
+    width: 60px;
+    height: 76px;
+  }
+  .thumb-label {
+    font-size: 9px;
+    padding: 3px 2px;
+  }
+  .carousel-thumbs {
+    gap: 6px;
+  }
+  .carousel-arrow {
+    width: 22px;
+    height: 36px;
+    font-size: 14px;
   }
 }
 </style>
