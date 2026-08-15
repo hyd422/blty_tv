@@ -53,6 +53,7 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import { cdnImg } from '../utils/img.js'
 
 const emit = defineEmits(['pv-click'])
 
@@ -82,7 +83,7 @@ const pvList = ref([
   { title: '心跳花火 幕后花絮', type: 'bts', views: '73.5万', duration: '03:22', cover: 'assets/pictures/thumb/79.jpg', bilibili: ' https://b23.tv/lOFaO81' },
   { title: '夏之回忆 幕后花絮', type: 'bts', views: '49.6万', duration: '18:44', cover: 'assets/pictures/thumb/2.jpg', bilibili: '  https://b23.tv/umyTNwr' },
   { title: '太阳 粉丝二创', type: 'fanmade', views: '35.7万', duration: '03:36', cover: 'assets/pictures/thumb/73.jpg', bilibili: '  https://b23.tv/2HnRB2f' }
-])
+].map(v => ({ ...v, cover: cdnImg(v.cover) })))
 
 const filteredList = computed(() => {
   if (activeType.value === 'all') return pvList.value

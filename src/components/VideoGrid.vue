@@ -41,6 +41,7 @@
 
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import { cdnImg } from '../utils/img.js'
 
 const emit = defineEmits(['video-click'])
 
@@ -86,7 +87,7 @@ const videoDataAll = [
   { title: 'City light',  img: 'assets/pictures/thumb/31.jpg', bilibili: bv('City') },
   { title: '水蒸气',       img: 'assets/pictures/thumb/32.jpg', bilibili: bv('水蒸气') },
   { title: '暗示',         img: 'assets/pictures/thumb/33.jpg', bilibili: bv('暗示') },
-]
+].map(v => ({ ...v, img: cdnImg(v.img) }))
 
 // ====== 懒加载状态 ======
 const visibleCount = ref(PAGE_SIZE)

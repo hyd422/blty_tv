@@ -43,6 +43,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import { cdnImg } from '../utils/img.js'
 
 const emit = defineEmits(['logo-click', 'search', 'icon-click', 'avatar-click'])
 
@@ -53,7 +54,7 @@ const navIcons = [
   { icon: '✉', title: '消息' },
   { icon: 'V', title: 'VIP', vBadge: true }
 ]
-const userAvatar = 'assets/pictures/thumb/33.jpg'
+const userAvatar = cdnImg('assets/pictures/thumb/33.jpg')
 
 function onLogoClick() {
   emit('logo-click')

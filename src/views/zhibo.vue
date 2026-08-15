@@ -28,6 +28,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import { cdnImg } from '../utils/img.js'
 
 const emit = defineEmits(['live-click'])
 
@@ -130,7 +131,7 @@ const liveList = ref([
     cover: 'assets/pictures/thumb/66.jpg',
     bilibili: 'https://b23.tv/GR92PTA'
   }
-])
+].map(v => ({ ...v, cover: cdnImg(v.cover) })))
 
 function onLiveClick(item) {
   if (item.bilibili) {

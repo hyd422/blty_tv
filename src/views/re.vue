@@ -54,6 +54,7 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import { cdnImg } from '../utils/img.js'
 
 const emit = defineEmits(['re-click'])
 
@@ -82,7 +83,7 @@ const reList = ref([
   { title: '【韩娱人reaction】这是舞台上！！不是房间里|柏里挑怡（柏欣妤&朱怡欣）cp向reaction', type: 'blty', up: 're完这个世界', views: '4.2万', duration: '32:18', cover: 'assets/pictures/thumb/50.jpg', bilibili: 'https://b23.tv/KmxPX5u' },
   { title: '【充电专场朱怡欣1.0】路人第一次看朱怡欣。美的太超过了!浓妆s感超重，21年简直白月光，我超级爱。光颜值我就看的受不了了!但舞蹈超级好。瓜猪花猪都很好!', type: 'zyx', up: '小小龟', views: '21.5万', duration: '17:44', cover: 'assets/pictures/thumb/51.jpg', bilibili: 'https://b23.tv/g4ddGdy' },
   { title: '【充电专场柏欣妤2.0mc版（含cp向）】看到了柏欣妤更活泼的一面，呆但是又某种程度蛮聪明的小狗。哈哈，但脑回路清奇到真是难以理解了。', type: 'bxy', up: '小小龟', views: '21.5万', duration: '17:44', cover: 'assets/pictures/thumb/52.jpg', bilibili: 'https://b23.tv/JFuOAqz' }
-])
+].map(v => ({ ...v, cover: cdnImg(v.cover) })))
 
 const filteredList = computed(() => {
   if (activeType.value === 'all') return reList.value
