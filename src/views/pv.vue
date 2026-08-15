@@ -29,7 +29,7 @@
             :src="item.cover"
             :alt="item.title"
             loading="lazy"
-            @error="onImgError($event)"
+            decoding="async"
           />
           <span class="pv-duration">{{ item.duration }}</span>
           <div class="pv-tag" :class="tagClass(item.type)">{{ getTypeLabel(item.type) }}</div>
@@ -66,22 +66,22 @@ const typeList = [
 const activeType = ref('all')
 
 const pvList = ref([
-  { title: '关于绿茶如何登堂入室', type: 'mv', views: '73.5万', duration: '03:22', cover: 'assets/pictures/71.jpg', bilibili: ' https://b23.tv/ETMiSUY' },
-  { title: '夏之回忆 官方 Intro', type: 'mv', views: '128.6万', duration: '04:22', cover: 'assets/pictures/72.jpg', bilibili: ' https://b23.tv/Cd5sAuo' },
-  { title: '行走的鱼 粉丝二创', type: 'fanmade', views: '49.6万', duration: '18:44', cover: 'assets/pictures/70.jpg', bilibili: '  https://b23.tv/RqN9Sai' },
-  { title: 'First Love 幕后花絮', type: 'bts', views: '128.6万', duration: '04:22', cover: 'assets/pictures/74.jpg', bilibili: 'https://b23.tv/dpVpXNl' },
-  { title: 'First Love 官方 intro', type: 'mv', views: '86.3万', duration: '03:48', cover: 'assets/pictures/6.jpg', bilibili: 'https://b23.tv/t6OKpfG' },
-  { title: 'First Love 官方 MV', type: 'mv', views: '128.6万', duration: '04:22', cover: 'assets/pictures/6.jpg', bilibili: ' https://b23.tv/uPUEUAk' },
-  { title: '绿茶登堂入室 幕后花絮', type: 'bts', views: '57.9万', duration: '12:30', cover: 'assets/pictures/67.jpg', bilibili: 'https://b23.tv/Op4xctC' },
-  { title: 'you are my sunshine 粉丝二创', type: 'fanmade', views: '41.2万', duration: '05:16', cover: 'assets/pictures/69.jpg', bilibili: 'https://b23.tv/5w0RHnn' },
-  { title: '出差和美女上司住一间房', type: 'mv', views: '203.1万', duration: '03:55', cover: 'assets/pictures/75.jpg', bilibili: ' https://b23.tv/stv9h8u' },
-  { title: '居家厨房play', type: 'mv', views: '112.7万', duration: '02:40', cover: 'assets/pictures/77.jpg', bilibili: ' https://b23.tv/JB3VWx4' },
-  { title: '私人信号 KV 拍摄花絮', type: 'bts', views: '68.4万', duration: '15:08', cover: 'assets/pictures/76.jpg', bilibili: ' https://b23.tv/RaW6rwo' },
-  { title: '暧昧 粉丝二创', type: 'fanmade', views: '95.8万', duration: '04:47', cover: 'assets/pictures/68.jpg', bilibili: ' https://b23.tv/nzjO3oL' },
-  { title: '日常向逛宜家', type: 'mv', views: '152.4万', duration: '05:12', cover: 'assets/pictures/78.jpg', bilibili: 'https://b23.tv/cWU7epL' },
-  { title: '心跳花火 幕后花絮', type: 'bts', views: '73.5万', duration: '03:22', cover: 'assets/pictures/79.jpg', bilibili: ' https://b23.tv/lOFaO81' },
-  { title: '夏之回忆 幕后花絮', type: 'bts', views: '49.6万', duration: '18:44', cover: 'assets/pictures/2.jpg', bilibili: '  https://b23.tv/umyTNwr' },
-  { title: '太阳 粉丝二创', type: 'fanmade', views: '35.7万', duration: '03:36', cover: 'assets/pictures/73.jpg', bilibili: '  https://b23.tv/2HnRB2f' }
+  { title: '关于绿茶如何登堂入室', type: 'mv', views: '73.5万', duration: '03:22', cover: 'assets/pictures/thumb/71.jpg', bilibili: ' https://b23.tv/ETMiSUY' },
+  { title: '夏之回忆 官方 Intro', type: 'mv', views: '128.6万', duration: '04:22', cover: 'assets/pictures/thumb/72.jpg', bilibili: ' https://b23.tv/Cd5sAuo' },
+  { title: '行走的鱼 粉丝二创', type: 'fanmade', views: '49.6万', duration: '18:44', cover: 'assets/pictures/thumb/70.jpg', bilibili: '  https://b23.tv/RqN9Sai' },
+  { title: 'First Love 幕后花絮', type: 'bts', views: '128.6万', duration: '04:22', cover: 'assets/pictures/thumb/74.jpg', bilibili: 'https://b23.tv/dpVpXNl' },
+  { title: 'First Love 官方 intro', type: 'mv', views: '86.3万', duration: '03:48', cover: 'assets/pictures/thumb/6.jpg', bilibili: 'https://b23.tv/t6OKpfG' },
+  { title: 'First Love 官方 MV', type: 'mv', views: '128.6万', duration: '04:22', cover: 'assets/pictures/thumb/6.jpg', bilibili: ' https://b23.tv/uPUEUAk' },
+  { title: '绿茶登堂入室 幕后花絮', type: 'bts', views: '57.9万', duration: '12:30', cover: 'assets/pictures/thumb/67.jpg', bilibili: 'https://b23.tv/Op4xctC' },
+  { title: 'you are my sunshine 粉丝二创', type: 'fanmade', views: '41.2万', duration: '05:16', cover: 'assets/pictures/thumb/69.jpg', bilibili: 'https://b23.tv/5w0RHnn' },
+  { title: '出差和美女上司住一间房', type: 'mv', views: '203.1万', duration: '03:55', cover: 'assets/pictures/thumb/75.jpg', bilibili: ' https://b23.tv/stv9h8u' },
+  { title: '居家厨房play', type: 'mv', views: '112.7万', duration: '02:40', cover: 'assets/pictures/thumb/77.jpg', bilibili: ' https://b23.tv/JB3VWx4' },
+  { title: '私人信号 KV 拍摄花絮', type: 'bts', views: '68.4万', duration: '15:08', cover: 'assets/pictures/thumb/76.jpg', bilibili: ' https://b23.tv/RaW6rwo' },
+  { title: '暧昧 粉丝二创', type: 'fanmade', views: '95.8万', duration: '04:47', cover: 'assets/pictures/thumb/68.jpg', bilibili: ' https://b23.tv/nzjO3oL' },
+  { title: '日常向逛宜家', type: 'mv', views: '152.4万', duration: '05:12', cover: 'assets/pictures/thumb/78.jpg', bilibili: 'https://b23.tv/cWU7epL' },
+  { title: '心跳花火 幕后花絮', type: 'bts', views: '73.5万', duration: '03:22', cover: 'assets/pictures/thumb/79.jpg', bilibili: ' https://b23.tv/lOFaO81' },
+  { title: '夏之回忆 幕后花絮', type: 'bts', views: '49.6万', duration: '18:44', cover: 'assets/pictures/thumb/2.jpg', bilibili: '  https://b23.tv/umyTNwr' },
+  { title: '太阳 粉丝二创', type: 'fanmade', views: '35.7万', duration: '03:36', cover: 'assets/pictures/thumb/73.jpg', bilibili: '  https://b23.tv/2HnRB2f' }
 ])
 
 const filteredList = computed(() => {
@@ -96,10 +96,6 @@ function getTypeLabel(key) {
 
 function tagClass(key) {
   return 'tag-' + key
-}
-
-function onImgError(e) {
-  e.target.src = 'assets/pictures/main.jpg'
 }
 
 function onPvClick(item) {

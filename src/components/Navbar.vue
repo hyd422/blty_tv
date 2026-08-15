@@ -53,7 +53,7 @@ const navIcons = [
   { icon: '✉', title: '消息' },
   { icon: 'V', title: 'VIP', vBadge: true }
 ]
-const userAvatar = 'assets/pictures/33.jpg'
+const userAvatar = 'assets/pictures/thumb/33.jpg'
 
 function onLogoClick() {
   emit('logo-click')
@@ -242,10 +242,19 @@ function onAvatarClick() {
   }
 }
 
+/* 手机端：强制固定吸顶，避免 iOS Safari 下随滚动脱落 */
+@media (max-width: 768px) {
+  .top-nav {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 1000;
+  }
+}
+
 @media (max-width: 480px) {
   .top-nav {
-    position: fixed;
-    top: 0;
     padding: 0 12px;
   }
   .nav-left {

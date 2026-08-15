@@ -1,13 +1,14 @@
 <template>
-  <div class="app-root">
-    <!-- 顶部导航栏 -->
-    <Navbar
-      @logo-click="onLogoClick"
-      @search="onSearch"
-      @icon-click="onNavIconClick"
-      @avatar-click="onAvatarClick"
-    />
+  <!-- 顶部导航栏：放在 .app-root 外部，
+       避免 .app-root 的 overflow-x:hidden 导致 iOS Safari 下 fixed 失效 -->
+  <Navbar
+    @logo-click="onLogoClick"
+    @search="onSearch"
+    @icon-click="onNavIconClick"
+    @avatar-click="onAvatarClick"
+  />
 
+  <div class="app-root">
     <div class="main-container">
       <!-- 左侧侧边栏 -->
       <Sidebar
@@ -60,22 +61,22 @@
         />
       </main>
     </div>
-
-    <!-- 一键回顶按钮：滚动超过 400px 时显示 -->
-    <transition name="fade-slide">
-      <button
-        v-show="showBackTop"
-        class="back-to-top"
-        @click="scrollToTop"
-        title="回到顶部"
-        aria-label="回到顶部"
-      >
-        <svg viewBox="0 0 24 24" class="btt-icon" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="18 15 12 9 6 15"></polyline>
-        </svg>
-      </button>
-    </transition>
   </div>
+
+  <!-- 一键回顶按钮：同样放在外部，确保 fixed 正常工作 -->
+  <transition name="fade-slide">
+    <button
+      v-show="showBackTop"
+      class="back-to-top"
+      @click="scrollToTop"
+      title="回到顶部"
+      aria-label="回到顶部"
+    >
+      <svg viewBox="0 0 24 24" class="btt-icon" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="18 15 12 9 6 15"></polyline>
+      </svg>
+    </button>
+  </transition>
 </template>
 
 <script setup>
@@ -239,23 +240,22 @@ html, body {
   background-color: #0a0a0a;
   color: #ffffff;
   min-height: 100vh;
-  overflow-x: hidden;
-  /* iOS Safari: 防止 fixed 元素随滚动跳动 */
+  width: 100%;
+  /* 注意：不要在 html/body 上设置 overflow-x: hidden，
+     否则 iOS Safari 下 position:fixed 会失效（navbar 不再吸顶）。
+     横向溢出改由 .app-root 接管。 */
   -webkit-overflow-scrolling: touch;
-}
-
-/* app-root 接管 overflow-x，避免 body 上设置导致 iOS fixed 失效 */
-.app-root {
-  overflow-x: hidden;
-  min-height: 100vh;
 }
 
 #app {
   min-height: 100vh;
 }
 
+/* app-root 接管 overflow-x，避免 body 上设置导致 iOS fixed 失效 */
 .app-root {
+  overflow-x: hidden;
   min-height: 100vh;
+  width: 100%;
 }
 
 /* ===== 主容器布局 ===== */
@@ -263,22 +263,16 @@ html, body {
   display: flex;
   padding-top: 56px;
   min-height: 100vh;
+  /* 创建独立层叠上下文，确保内部所有内容（含 transform 子元素）
+     都位于 navbar(z-index:1000) 之下，避免滚动时遮挡顶栏 */
+  position: relative;
+  z-index: 1;
 }
 
 @media (max-width: 768px) {
   .main-container {
     flex-direction: column;
-    padding-top: 104px;
-  }
-  .content {
-    margin-left: 0;
-    padding: 16px 12px 32px;
-  }
-}
-
-@media (max-width: 768px) {
-  .main-container {
-    flex-direction: column;
+    /* 手机端：navbar(56px) + sidebar(48px) 都固定吸顶，需留出对应高度 */
     padding-top: 104px;
   }
 }

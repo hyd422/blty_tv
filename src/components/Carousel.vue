@@ -8,6 +8,8 @@
           :src="currentSlide.mainImg"
           alt="轮播背景"
           class="fade-in"
+          decoding="async"
+          fetchpriority="high"
         />
         <div class="carousel-overlay"></div>
       </div>
@@ -27,7 +29,7 @@
               :class="{ active: currentIndex === idx }"
               @click="goToSlide(idx)"
             >
-              <img :src="item.thumbImg" :alt="`缩略图${idx + 1}`" />
+              <img :src="item.thumbImg" :alt="`缩略图${idx + 1}`" loading="lazy" decoding="async" />
               <span class="thumb-label">{{ item.label }}</span>
             </div>
           </div>
@@ -43,29 +45,29 @@ import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 
 const emit = defineEmits(['slide-change', 'thumb-click'])
 
-const CACHE_VER = 'v2'
+const CACHE_VER = 'v3'
 const cacheBust = (src) => `${src}?${CACHE_VER}`
 
 const carouselData = [
   {
-    mainImg: cacheBust('assets/pictures/38.jpg'),
-    thumbImg: cacheBust('assets/pictures/35.jpg'),
+    mainImg: cacheBust('assets/pictures/medium/38.jpg'),
+    thumbImg: cacheBust('assets/pictures/thumb/35.jpg'),
     label: '心跳花火武汉站',
     title: '柏里挑怡',
     subtitle: '#金曲唯一双冠王',
     author: '@柏欣妤&@朱怡欣'
   },
   {
-    mainImg: cacheBust('assets/pictures/39.jpg'),
-    thumbImg: cacheBust('assets/pictures/34.jpg'),
+    mainImg: cacheBust('assets/pictures/medium/39.jpg'),
+    thumbImg: cacheBust('assets/pictures/thumb/34.jpg'),
     label: '心跳花火厦门站',
     title: '柏里挑怡',
     subtitle: '#金曲大赏双连冠',
     author: '@柏欣妤&@朱怡欣'
   },
   {
-    mainImg: cacheBust('assets/pictures/37.jpg'),
-    thumbImg: cacheBust('assets/pictures/36.jpg'),
+    mainImg: cacheBust('assets/pictures/medium/37.jpg'),
+    thumbImg: cacheBust('assets/pictures/thumb/36.jpg'),
     label: '私人信号',
     title: '柏里挑怡',
     subtitle: '#双人巡演敬请期待',

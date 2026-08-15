@@ -55,6 +55,8 @@ function onMenuClick(idx) {
   left: 0;
   bottom: 0;
   overflow-y: auto;
+  /* 位于 content 之上、navbar 之下（navbar z-index:1000 在外层） */
+  z-index: 10;
 }
 
 .side-menu ul {
