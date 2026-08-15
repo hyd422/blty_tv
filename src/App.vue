@@ -59,6 +59,12 @@
           v-else-if="activePage === 'pv'"
           @pv-click="onPvClick"
         />
+
+        <!-- 口袋爱/时间线整理 -->
+        <Koudai
+          v-else-if="activePage === 'koudai'"
+          @koudai-click="onKoudaiClick"
+        />
       </main>
     </div>
   </div>
@@ -91,6 +97,7 @@ import Douban from './views/douban.vue'
 import ReVideos from './views/re.vue'
 import Tang from './views/tang.vue'
 import Pv from './views/pv.vue'
+import Koudai from './views/koudai.vue'
 
 // ===== 当前页面 =====
 const activePage = ref('home')
@@ -124,7 +131,9 @@ const menuPageMap = {
   'Re视频': 're',
   '那些很锤的糖': 'tang',
   'PV': 'pv',
-  'pv': 'pv'
+  'pv': 'pv',
+  '口袋爱/时间线': 'koudai',
+  '口袋爱/时间线整理': 'koudai'
 }
 
 // activePage -> 侧边栏 index（与 Sidebar.vue menuList 顺序对应）
@@ -134,7 +143,8 @@ const pageIndexMap = {
   douban: 2,
   re: 3,
   tang: 4,
-  pv: 5
+  pv: 5,
+  koudai: 6
 }
 
 const activeSidebarIndex = () => pageIndexMap[activePage.value] ?? 0
@@ -203,6 +213,14 @@ function onPvClick(item) {
   } else {
     console.log('[App] 播放PV：', item.title)
     alert(`即将播放：${item.title}`)
+  }
+}
+
+function onKoudaiClick(item) {
+  if (item.link) {
+    console.log('[App] 已在新标签打开微博链接：', item.title)
+  } else {
+    console.log('[App] 点击口袋爱：', item.title)
   }
 }
 
