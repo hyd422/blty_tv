@@ -47,7 +47,8 @@
             @error="onImgError"
           />
           <span class="baidou-num">{{ String(idx + 1).padStart(2, '0') }}</span>
-          <span v-if="getTypeLabel(item.aweme_type)" class="baidou-type-tag">{{ getTypeLabel(item.aweme_type) }}</span>
+          <span v-if="isCoCreate(item.aweme_id)" class="baidou-type-tag co-create-tag">共创</span>
+          <span v-else-if="getTypeLabel(item.aweme_type)" class="baidou-type-tag">{{ getTypeLabel(item.aweme_type) }}</span>
         </div>
         <div class="baidou-info">
           <h3 class="baidou-title">{{ cleanTitle(item.title) }}</h3>
@@ -76,8 +77,11 @@ const emit = defineEmits(['baidou-click'])
 
 // 数据源：public/douyin/creator_contents_2026-08-16_0125yep.jsonl
 const DATA_FILE = '/douyin/creator_contents_2026-08-16_0125yep.jsonl'
+// 对方（朱怡欣）数据，用于计算共创交集
+const DATA_FILE_OPPONENT = '/douyin/creator_contents_2026-08-16.jsonl'
 
 const rawList = ref([])
+const coCreateIds = ref(new Set()) // 两人共有的 aweme_id 集合
 const loaded = ref(false)
 const loading = ref(false)
 const loadError = ref('')
@@ -91,9 +95,10 @@ const sortList = [
 ]
 const activeSort = ref('newest')
 
-// 内容类型筛选（aweme_type: 0=视频，51=合拍，68=图文）
+// 内容类型筛选（aweme_type: 0=视频，51=合拍，68=图文；cocreate=共创）
 const typeFilterList = [
   { label: '全部', key: 'all' },
+  { label: '共创', key: 'cocreate' },
   { label: '视频', key: '0' },
   { label: '合拍', key: '51' },
   { label: '图文', key: '68' }
@@ -102,9 +107,17 @@ const activeType = ref('all')
 
 const total = computed(() => rawList.value.length)
 
+// 是否为共创视频
+function isCoCreate(id) {
+  return coCreateIds.value.has(id)
+}
+
 // 按类型筛选后的列表
 const filteredList = computed(() => {
   if (activeType.value === 'all') return rawList.value
+  if (activeType.value === 'cocreate') {
+    return rawList.value.filter(item => coCreateIds.value.has(item.aweme_id))
+  }
   return rawList.value.filter(item => String(item.aweme_type) === activeType.value)
 })
 
@@ -113,6 +126,7 @@ const totalFiltered = computed(() => filteredList.value.length)
 // 按类型统计数量
 function typeCount(key) {
   if (key === 'all') return total.value
+  if (key === 'cocreate') return rawList.value.filter(item => coCreateIds.value.has(item.aweme_id)).length
   return rawList.value.filter(item => String(item.aweme_type) === key).length
 }
 
@@ -162,13 +176,28 @@ onMounted(async () => {
   window.addEventListener('scroll', onScroll, { passive: true })
   loading.value = true
   try {
-    const res = await fetch(DATA_FILE)
-    if (!res.ok) throw new Error(`HTTP ${res.status}`)
-    const text = await res.text()
-    const lines = text.split('\n').map(l => l.trim()).filter(Boolean)
-    rawList.value = lines.map(line => {
-      try { return JSON.parse(line) } catch { return null }
-    }).filter(Boolean)
+    // 并行加载自己与对方的数据
+    const [resSelf, resOpp] = await Promise.all([
+      fetch(DATA_FILE),
+      fetch(DATA_FILE_OPPONENT)
+    ])
+    if (!resSelf.ok) throw new Error(`HTTP ${resSelf.status}`)
+
+    const parseLines = (text) => text.split('\n').map(l => l.trim()).filter(Boolean)
+      .map(line => { try { return JSON.parse(line) } catch { return null } })
+      .filter(Boolean)
+
+    const [selfList, oppList] = await Promise.all([
+      resSelf.text().then(parseLines),
+      resOpp.ok ? resOpp.text().then(parseLines) : Promise.resolve([])
+    ])
+
+    rawList.value = selfList
+
+    // 计算共创交集：两人 aweme_id 都存在的视频
+    const oppIds = new Set(oppList.map(i => i.aweme_id))
+    coCreateIds.value = new Set(selfList.map(i => i.aweme_id).filter(id => oppIds.has(id)))
+
     loaded.value = true
   } catch (e) {
     loadError.value = `数据加载失败：${e.message}`
@@ -409,6 +438,13 @@ function onImgError(e) {
   color: #fff;
   font-size: 12px;
   font-weight: 600;
+}
+
+/* 共创标签：金色，区别于普通类型 */
+.co-create-tag {
+  background: linear-gradient(135deg, #ffb800, #ff8a00) !important;
+  color: #1a1a1a !important;
+  box-shadow: 0 2px 8px rgba(255, 138, 0, 0.4);
 }
 
 .baidou-info {
