@@ -5,12 +5,23 @@
       <span class="page-subtitle">{{ loaded ? `共 ${total} 条内容` : '加载中…' }}</span>
     </div>
 
+    <!-- 内容类型筛选 -->
+    <div class="filter-bar type-filter" v-if="loaded">
+      <span
+        v-for="t in typeFilterList"
+        :key="t.key"
+        class="filter-chip"
+        :class="{ active: activeType === t.key }"
+        @click="activeType = t.key"
+      >{{ t.label }}<span class="chip-count">{{ typeCount(t.key) }}</span></span>
+    </div>
+
     <!-- 排序方式 -->
     <div class="filter-bar" v-if="loaded">
       <span
         v-for="s in sortList"
         :key="s.key"
-        class="filter-chip"
+        class="filter-chip sort-chip"
         :class="{ active: activeSort === s.key }"
         @click="activeSort = s.key"
       >{{ s.label }}</span>
@@ -52,13 +63,14 @@
 
     <!-- 加载状态 -->
     <div v-if="loading" class="loading-tip">加载中…</div>
-    <div v-else-if="loaded && visibleList.length >= total" class="loading-tip">没有更多了 · 共 {{ total }} 条</div>
     <div v-else-if="loadError" class="loading-tip error">{{ loadError }}</div>
+    <div v-else-if="loaded && visibleList.length === 0" class="loading-tip">该筛选条件下暂无内容</div>
+    <div v-else-if="loaded && visibleList.length >= totalFiltered" class="loading-tip">没有更多了 · 共 {{ totalFiltered }} 条</div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount, watch } from 'vue'
 
 const emit = defineEmits(['zhudou-click'])
 
@@ -79,11 +91,34 @@ const sortList = [
 ]
 const activeSort = ref('newest')
 
+// 内容类型筛选（aweme_type: 0=视频，51=合拍，68=图文）
+const typeFilterList = [
+  { label: '全部', key: 'all' },
+  { label: '视频', key: '0' },
+  { label: '合拍', key: '51' },
+  { label: '图文', key: '68' }
+]
+const activeType = ref('all')
+
 const total = computed(() => rawList.value.length)
 
-// 排序后的完整列表
+// 按类型筛选后的列表
+const filteredList = computed(() => {
+  if (activeType.value === 'all') return rawList.value
+  return rawList.value.filter(item => String(item.aweme_type) === activeType.value)
+})
+
+const totalFiltered = computed(() => filteredList.value.length)
+
+// 按类型统计数量
+function typeCount(key) {
+  if (key === 'all') return total.value
+  return rawList.value.filter(item => String(item.aweme_type) === key).length
+}
+
+// 排序后的完整列表（在筛选基础上排序）
 const sortedList = computed(() => {
-  const arr = [...rawList.value]
+  const arr = [...filteredList.value]
   switch (activeSort.value) {
     case 'liked':
       return arr.sort((a, b) => num(b.liked_count) - num(a.liked_count))
@@ -102,14 +137,21 @@ const PAGE_SIZE = 9
 const visibleCount = ref(PAGE_SIZE)
 const visibleList = computed(() => sortedList.value.slice(0, visibleCount.value))
 
+// 切换筛选/排序时重置分页
+watch([activeType, activeSort], () => {
+  visibleCount.value = PAGE_SIZE
+  // 回到顶部，避免停留在已滚动位置导致显示空白
+  window.scrollTo({ top: 0, behavior: 'smooth' })
+})
+
 function loadMore() {
   if (loading.value || !loaded.value) return
-  if (visibleCount.value >= total.value) return
-  visibleCount.value = Math.min(visibleCount.value + PAGE_SIZE, total.value)
+  if (visibleCount.value >= totalFiltered.value) return
+  visibleCount.value = Math.min(visibleCount.value + PAGE_SIZE, totalFiltered.value)
 }
 
 function onScroll() {
-  if (visibleCount.value >= total.value) return
+  if (visibleCount.value >= totalFiltered.value) return
   const scrollTop = window.scrollY
   const winH = window.innerHeight
   const docH = document.documentElement.scrollHeight
@@ -217,6 +259,58 @@ function onImgError(e) {
   gap: 10px;
   margin-bottom: 24px;
   flex-wrap: wrap;
+}
+
+/* 类型筛选栏：与排序栏区分，使用更明显的样式 */
+.type-filter {
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.type-filter .filter-chip {
+  padding: 7px 18px;
+  font-size: 13px;
+}
+
+/* 排序栏更紧凑 */
+.filter-bar:not(.type-filter) {
+  margin-top: -14px;
+}
+
+.sort-chip {
+  padding: 5px 12px !important;
+  font-size: 12px !important;
+  background: transparent !important;
+  border-color: transparent !important;
+  color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.sort-chip:hover {
+  color: rgba(255, 255, 255, 0.85) !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+}
+
+.sort-chip.active {
+  color: #00e700 !important;
+  background: rgba(0, 231, 0, 0.08) !important;
+  border-color: rgba(0, 231, 0, 0.25) !important;
+}
+
+.chip-count {
+  margin-left: 6px;
+  padding: 1px 6px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 11px;
+  font-weight: 600;
+  min-width: 18px;
+  text-align: center;
+}
+
+.filter-chip.active .chip-count {
+  background: rgba(0, 231, 0, 0.2);
+  color: #00e700;
 }
 
 .filter-chip {
