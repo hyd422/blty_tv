@@ -11,7 +11,7 @@
         <input
           v-model="searchText"
           type="text"
-          placeholder="柏里挑怡 一见倾心"
+          placeholder="抖音词条搜索"
           @keypress.enter="onSearch"
         />
         <div class="search-tags">
