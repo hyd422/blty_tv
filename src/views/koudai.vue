@@ -42,7 +42,7 @@ const koudaiList = ref([
     link: 'https://www.douban.com/link2/?url=https%3A%2F%2Fweibo.com%2Fu%2F7929103261'
   },
   {
-    title: '22年时间轴',
+    title: '时间轴补档',
     link: 'https://www.douban.com/link2/?url=http%3A%2F%2Ft.cn%2FA6EJQ8ry&link2key=61804e853e'
   },
   {

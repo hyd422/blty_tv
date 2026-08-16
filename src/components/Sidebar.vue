@@ -36,7 +36,8 @@ const menuList = [
   { icon: '🎬', name: 're视频' },
   { icon: '🎞', name: '那些很锤的糖' },
   { icon: '🎤', name: 'PV' },
-  { icon: '♡', name: '口袋爱/时间线' }
+  { icon: '♡', name: '口袋爱/时间线' },
+  { icon: '🎵', name: '朱怡欣抖音' }
 ]
 
 function onMenuClick(idx) {

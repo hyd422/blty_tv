@@ -65,6 +65,12 @@
           v-else-if="activePage === 'koudai'"
           @koudai-click="onKoudaiClick"
         />
+
+        <!-- 朱怡欣抖音 -->
+        <Zhudou
+          v-else-if="activePage === 'zhudou'"
+          @zhudou-click="onZhudouClick"
+        />
       </main>
     </div>
   </div>
@@ -98,6 +104,7 @@ import ReVideos from './views/re.vue'
 import Tang from './views/tang.vue'
 import Pv from './views/pv.vue'
 import Koudai from './views/koudai.vue'
+import Zhudou from './views/zhudou.vue'
 
 // ===== 当前页面 =====
 const activePage = ref('home')
@@ -133,7 +140,8 @@ const menuPageMap = {
   'PV': 'pv',
   'pv': 'pv',
   '口袋爱/时间线': 'koudai',
-  '口袋爱/时间线整理': 'koudai'
+  '口袋爱/时间线整理': 'koudai',
+  '朱怡欣抖音': 'zhudou'
 }
 
 // activePage -> 侧边栏 index（与 Sidebar.vue menuList 顺序对应）
@@ -144,7 +152,8 @@ const pageIndexMap = {
   re: 3,
   tang: 4,
   pv: 5,
-  koudai: 6
+  koudai: 6,
+  zhudou: 7
 }
 
 const activeSidebarIndex = () => pageIndexMap[activePage.value] ?? 0
@@ -221,6 +230,14 @@ function onKoudaiClick(item) {
     console.log('[App] 已在新标签打开微博链接：', item.title)
   } else {
     console.log('[App] 点击口袋爱：', item.title)
+  }
+}
+
+function onZhudouClick(item) {
+  if (item.aweme_url) {
+    console.log('[App] 已在新标签打开抖音：', item.title)
+  } else {
+    console.log('[App] 点击抖音内容：', item.title)
   }
 }
 
