@@ -77,6 +77,13 @@
           v-else-if="activePage === 'baidou'"
           @baidou-click="onBaidouClick"
         />
+
+        <!-- 搜索结果 -->
+        <Search
+          v-else-if="activePage === 'search'"
+          :keyword="searchKeyword"
+          @search="onSearch"
+        />
       </main>
     </div>
   </div>
@@ -112,9 +119,13 @@ import Pv from './views/pv.vue'
 import Koudai from './views/koudai.vue'
 import Zhudou from './views/zhudou.vue'
 import Baidou from './views/baidou.vue'
+import Search from './views/search.vue'
 
 // ===== 当前页面 =====
 const activePage = ref('home')
+
+// 搜索关键词（传给 Search 页面）
+const searchKeyword = ref('')
 
 // ===== 事件处理（可在此接入路由/全局状态） =====
 function onLogoClick() {
@@ -122,8 +133,11 @@ function onLogoClick() {
 }
 
 function onSearch(keyword) {
-  console.log('[App] 搜索关键词：', keyword)
-  alert(`搜索：${keyword}`)
+  const kw = (keyword || '').trim()
+  if (!kw) return
+  searchKeyword.value = kw
+  activePage.value = 'search'
+  console.log('[App] 搜索关键词：', kw)
 }
 
 function onNavIconClick(idx) {
@@ -165,7 +179,11 @@ const pageIndexMap = {
   baidou: 8
 }
 
-const activeSidebarIndex = () => pageIndexMap[activePage.value] ?? 0
+const activeSidebarIndex = () => {
+  // 搜索页不高亮任何侧边栏项
+  if (activePage.value === 'search') return -1
+  return pageIndexMap[activePage.value] ?? 0
+}
 
 function onMenuClick({ index, menu }) {
   console.log(`[App] 菜单切换：第${index}项 - ${menu.name}`)
@@ -270,12 +288,30 @@ function scrollToTop() {
   window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 
+function onHashChange() {
+  // 监听 Search 页面页内搜索触发的 hash 变化（#search=关键词）
+  const m = /^#search=(.+)$/.exec(window.location.hash)
+  if (m) {
+    const kw = decodeURIComponent(m[1])
+    if (kw && kw !== searchKeyword.value) {
+      searchKeyword.value = kw
+      activePage.value = 'search'
+    }
+    // 清掉 hash，避免重复触发
+    history.replaceState(null, '', window.location.pathname + window.location.search)
+  }
+}
+
 onMounted(() => {
   window.addEventListener('scroll', onScroll, { passive: true })
+  window.addEventListener('hashchange', onHashChange)
+  // 首次加载若带 hash 也处理一次
+  onHashChange()
 })
 
 onBeforeUnmount(() => {
   window.removeEventListener('scroll', onScroll)
+  window.removeEventListener('hashchange', onHashChange)
 })
 </script>
 

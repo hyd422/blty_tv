@@ -68,6 +68,8 @@ function onSearch() {
 
 function onTagClick(tag) {
   searchText.value = tag
+  // 点击标签直接触发搜索
+  emit('search', tag)
 }
 
 function onIconClick(idx) {
