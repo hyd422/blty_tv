@@ -84,6 +84,12 @@
           :keyword="searchKeyword"
           @search="onSearch"
         />
+
+        <!-- 朱怡欣微博 -->
+        <Zhuweibo
+          v-else-if="activePage === 'zhuweibo'"
+          @zhuweibo-click="onZhuweiboClick"
+        />
       </main>
     </div>
   </div>
@@ -120,6 +126,7 @@ import Koudai from './views/koudai.vue'
 import Zhudou from './views/zhudou.vue'
 import Baidou from './views/baidou.vue'
 import Search from './views/search.vue'
+import Zhuweibo from './views/zhuweibo.vue'
 
 // ===== 当前页面 =====
 const activePage = ref('home')
@@ -163,7 +170,8 @@ const menuPageMap = {
   '口袋爱/时间线': 'koudai',
   '口袋爱/时间线整理': 'koudai',
   '朱怡欣抖音': 'zhudou',
-  '柏欣妤抖音': 'baidou'
+  '柏欣妤抖音': 'baidou',
+  '朱怡欣微博': 'zhuweibo'
 }
 
 // activePage -> 侧边栏 index（与 Sidebar.vue menuList 顺序对应）
@@ -176,7 +184,8 @@ const pageIndexMap = {
   pv: 5,
   koudai: 6,
   zhudou: 7,
-  baidou: 8
+  baidou: 8,
+  zhuweibo: 9
 }
 
 const activeSidebarIndex = () => {
@@ -273,6 +282,14 @@ function onBaidouClick(item) {
     console.log('[App] 已在新标签打开抖音：', item.title)
   } else {
     console.log('[App] 点击抖音内容：', item.title)
+  }
+}
+
+function onZhuweiboClick(item) {
+  if (item.note_url) {
+    console.log('[App] 已在新标签打开微博：', item.note_id)
+  } else {
+    console.log('[App] 点击微博：', item.note_id)
   }
 }
 
