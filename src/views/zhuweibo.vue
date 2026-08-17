@@ -7,6 +7,17 @@
 
     <!-- ===== 搜索 / 筛选区 ===== -->
     <div class="filter-panel">
+      <!-- 账号筛选：大号 / 小号 -->
+      <div class="account-row">
+        <span
+          v-for="a in accountFilterList"
+          :key="a.key"
+          class="account-chip"
+          :class="{ active: activeAccount === a.key }"
+          @click="activeAccount = a.key; applyFilters()"
+        >{{ a.label }}<span class="chip-count">{{ accountCount(a.key) }}</span></span>
+      </div>
+
       <!-- 关键词搜索 -->
       <div class="search-row">
         <div class="search-input-bar">
@@ -58,6 +69,9 @@
         </div>
         <div class="active-filters" v-if="activeFilterCount > 0">
           <span class="filter-label">已选：</span>
+          <span v-if="activeAccount !== 'all'" class="filter-tag" @click="clearAccount">
+            👤 {{ accountLabel(activeAccount) }} <em>✕</em>
+          </span>
           <span v-if="localKeyword" class="filter-tag" @click="clearKw">🔎 {{ localKeyword }} <em>✕</em></span>
           <span v-if="timeStart || timeEnd" class="filter-tag" @click="clearTime">
             📅 {{ timeStart || '不限' }} ~ {{ timeEnd || '不限' }} <em>✕</em>
@@ -84,6 +98,7 @@
         <div class="weibo-right">
           <div class="weibo-header">
             <span class="weibo-nick">{{ item.nickname || '朱怡欣' }}</span>
+            <span class="weibo-account-tag" :class="accountClass(item.nickname)">{{ accountLabel(accountKey(item.nickname)) }}</span>
             <span class="weibo-time">{{ formatDateTime(item.create_time) }}</span>
           </div>
           <p class="weibo-content" v-html="formatContent(item.content)"></p>
@@ -175,10 +190,53 @@ const sortList = [
 ]
 const activeSort = ref('newest')
 
+// 账号筛选：G***- = 大号，我***呢 = 小号
+const accountFilterList = [
+  { label: '全部', key: 'all' },
+  { label: '👑 大号', key: 'big' },
+  { label: '🐣 小号', key: 'small' }
+]
+const activeAccount = ref('all')
+
+// nickname → 账号 key
+function accountKey(nickname) {
+  const n = nickname || ''
+  if (n.startsWith('G')) return 'big'
+  if (n.startsWith('我')) return 'small'
+  return 'other'
+}
+
+function accountLabel(key) {
+  if (key === 'big') return '大号'
+  if (key === 'small') return '小号'
+  if (key === 'other') return '其他'
+  return '全部'
+}
+
+function accountClass(nickname) {
+  const k = accountKey(nickname)
+  return {
+    'tag-big': k === 'big',
+    'tag-small': k === 'small',
+    'tag-other': k === 'other'
+  }
+}
+
+function accountCount(key) {
+  if (key === 'all') return rawList.value.length
+  return rawList.value.filter(i => accountKey(i.nickname) === key).length
+}
+
+function clearAccount() {
+  activeAccount.value = 'all'
+  applyFilters()
+}
+
 const total = computed(() => rawList.value.length)
 
 const activeFilterCount = computed(() => {
   let c = 0
+  if (activeAccount.value !== 'all') c++
   if (activeKeyword.value) c++
   if (timeStart.value || timeEnd.value) c++
   return c
@@ -187,6 +245,11 @@ const activeFilterCount = computed(() => {
 // 应用筛选后得到的列表
 const filteredList = computed(() => {
   let list = rawList.value
+
+  // 账号筛选
+  if (activeAccount.value !== 'all') {
+    list = list.filter(item => accountKey(item.nickname) === activeAccount.value)
+  }
 
   // 关键词筛选
   if (activeKeyword.value) {
@@ -474,6 +537,84 @@ function openNote(url) {
 .s-btn:hover {
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(0, 231, 0, 0.35);
+}
+
+/* 账号筛选行 */
+.account-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.account-chip {
+  padding: 7px 18px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.65);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.25s;
+  user-select: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+.account-chip:hover {
+  color: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.account-chip.active {
+  color: #ffb800;
+  background: rgba(255, 184, 0, 0.12);
+  border-color: rgba(255, 184, 0, 0.5);
+  box-shadow: 0 2px 8px rgba(255, 184, 0, 0.15);
+}
+
+.chip-count {
+  margin-left: 6px;
+  padding: 1px 7px;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 11px;
+  font-weight: 600;
+  min-width: 18px;
+  text-align: center;
+}
+
+.account-chip.active .chip-count {
+  background: rgba(255, 184, 0, 0.25);
+  color: #ffb800;
+}
+
+/* 卡片账号徽标 */
+.weibo-account-tag {
+  padding: 2px 9px;
+  border-radius: 9px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.tag-big {
+  background: rgba(255, 184, 0, 0.18);
+  color: #ffb800;
+  border: 1px solid rgba(255, 184, 0, 0.3);
+}
+
+.tag-small {
+  background: rgba(255, 138, 200, 0.18);
+  color: #ff8ac8;
+  border: 1px solid rgba(255, 138, 200, 0.3);
+}
+
+.tag-other {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* 时间检索行 */
