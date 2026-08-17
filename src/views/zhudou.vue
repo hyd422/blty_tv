@@ -78,7 +78,7 @@ const emit = defineEmits(['zhudou-click'])
 // 数据源：public/douyin/creator_contents_2026-08-16.jsonl
 const DATA_FILE = '/douyin/creator_contents_2026-08-16.jsonl'
 // 对方（柏欣妤）数据，用于计算共创交集
-const DATA_FILE_OPPONENT = '/douyin/creator_contents_2026-08-16_0125yep.jsonl'
+const DATA_FILE_OPPONENT = '/douyin/creator_contents_2026-08-17_0125yep.jsonl'
 
 const rawList = ref([])
 const coCreateIds = ref(new Set()) // 两人共有的 aweme_id 集合
@@ -192,11 +192,19 @@ onMounted(async () => {
       resOpp.ok ? resOpp.text().then(parseLines) : Promise.resolve([])
     ])
 
-    rawList.value = selfList
+    // 按 aweme_id 去重：保留 create_time 最大（最新发布）的记录
+    const idMap = new Map()
+    for (const item of selfList) {
+      const existing = idMap.get(item.aweme_id)
+      if (!existing || (Number(item.create_time) || 0) > (Number(existing.create_time) || 0)) {
+        idMap.set(item.aweme_id, item)
+      }
+    }
+    rawList.value = Array.from(idMap.values())
 
     // 计算共创交集：两人 aweme_id 都存在的视频
     const oppIds = new Set(oppList.map(i => i.aweme_id))
-    coCreateIds.value = new Set(selfList.map(i => i.aweme_id).filter(id => oppIds.has(id)))
+    coCreateIds.value = new Set(rawList.value.map(i => i.aweme_id).filter(id => oppIds.has(id)))
 
     loaded.value = true
   } catch (e) {

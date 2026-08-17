@@ -75,8 +75,8 @@ import { ref, computed, onMounted, onBeforeUnmount, watch } from 'vue'
 
 const emit = defineEmits(['baidou-click'])
 
-// 数据源：public/douyin/creator_contents_2026-08-16_0125yep.jsonl
-const DATA_FILE = '/douyin/creator_contents_2026-08-16_0125yep.jsonl'
+// 数据源：public/douyin/creator_contents_2026-08-17_0125yep.jsonl
+const DATA_FILE = '/douyin/creator_contents_2026-08-17_0125yep.jsonl'
 // 对方（朱怡欣）数据，用于计算共创交集
 const DATA_FILE_OPPONENT = '/douyin/creator_contents_2026-08-16.jsonl'
 
@@ -204,7 +204,7 @@ onMounted(async () => {
 
     // 计算共创交集：两人 aweme_id 都存在的视频
     const oppIds = new Set(oppList.map(i => i.aweme_id))
-    coCreateIds.value = new Set(selfList.map(i => i.aweme_id).filter(id => oppIds.has(id)))
+    coCreateIds.value = new Set(rawList.value.map(i => i.aweme_id).filter(id => oppIds.has(id)))
 
     loaded.value = true
   } catch (e) {
