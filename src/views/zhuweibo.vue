@@ -91,6 +91,7 @@
             <span class="foot-item">❤️ {{ formatCount(item.liked_count) }}</span>
             <span class="foot-item">💬 {{ formatCount(item.comments_count) }}</span>
             <span class="foot-item">↗ {{ formatCount(item.shared_count) }}</span>
+            <span class="foot-link" @click.stop="openNote(item.note_url)">📷 查看原微博</span>
           </div>
         </div>
       </a>
@@ -266,9 +267,20 @@ onMounted(async () => {
     const res = await fetch(DATA_FILE)
     if (!res.ok) throw new Error(`HTTP ${res.status}`)
     const text = await res.text()
-    rawList.value = text.split('\n').map(l => l.trim()).filter(Boolean)
+    const parsed = text.split('\n').map(l => l.trim()).filter(Boolean)
       .map(line => { try { return JSON.parse(line) } catch { return null } })
       .filter(Boolean)
+
+    // 按 note_id 去重：保留 last_modify_ts 最大（最新抓取）的记录
+    const idMap = new Map()
+    for (const item of parsed) {
+      const existing = idMap.get(item.note_id)
+      if (!existing || (Number(item.last_modify_ts) || 0) > (Number(existing.last_modify_ts) || 0)) {
+        idMap.set(item.note_id, item)
+      }
+    }
+    rawList.value = Array.from(idMap.values())
+
     loaded.value = true
   } catch (e) {
     loadError.value = `数据加载失败：${e.message}`
@@ -334,6 +346,10 @@ function escapeRegExp(s) {
 
 function onCardClick(item) {
   emit('zhuweibo-click', item)
+}
+
+function openNote(url) {
+  if (url) window.open(url, '_blank', 'noopener,noreferrer')
 }
 </script>
 
@@ -711,6 +727,24 @@ function onCardClick(item) {
 .foot-item {
   font-size: 13px;
   color: rgba(255, 255, 255, 0.5);
+}
+
+.foot-link {
+  font-size: 12px;
+  color: #00e700;
+  font-weight: 600;
+  margin-left: auto;
+  padding: 4px 10px;
+  border-radius: 12px;
+  background: rgba(0, 231, 0, 0.08);
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.foot-link:hover {
+  background: rgba(0, 231, 0, 0.2);
+  transform: translateY(-1px);
 }
 
 .loading-tip {
