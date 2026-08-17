@@ -96,6 +96,11 @@
           v-else-if="activePage === 'baiweibo'"
           @baiweibo-click="onBaiweiboClick"
         />
+
+        <!-- 有话说 -->
+        <Youhuashuo
+          v-else-if="activePage === 'youhuashuo'"
+        />
       </main>
     </div>
   </div>
@@ -134,6 +139,7 @@ import Baidou from './views/baidou.vue'
 import Search from './views/search.vue'
 import Zhuweibo from './views/zhuweibo.vue'
 import Baiweibo from './views/baiweibo.vue'
+import Youhuashuo from './views/youhuashuo.vue'
 
 // ===== 当前页面 =====
 const activePage = ref('home')
@@ -179,7 +185,8 @@ const menuPageMap = {
   '朱怡欣抖音': 'zhudou',
   '柏欣妤抖音': 'baidou',
   '朱怡欣微博': 'zhuweibo',
-  '柏欣妤微博': 'baiweibo'
+  '柏欣妤微博': 'baiweibo',
+  '有话说': 'youhuashuo'
 }
 
 // activePage -> 侧边栏 index（与 Sidebar.vue menuList 顺序对应）
@@ -194,7 +201,8 @@ const pageIndexMap = {
   zhudou: 7,
   baidou: 8,
   zhuweibo: 9,
-  baiweibo: 10
+  baiweibo: 10,
+  youhuashuo: 11
 }
 
 const activeSidebarIndex = () => {

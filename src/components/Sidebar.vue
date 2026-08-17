@@ -40,7 +40,8 @@ const menuList = [
   { icon: '🎵', name: '朱怡欣抖音' },
   { icon: '🎵', name: '柏欣妤抖音' },
   { icon: '🐽', name: '朱怡欣微博' },
-  { icon: '🐶', name: '柏欣妤微博' }
+  { icon: '🐶', name: '柏欣妤微博' },
+  { icon: '💬', name: '有话说' }
 ]
 
 function onMenuClick(idx) {
