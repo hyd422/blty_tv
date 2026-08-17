@@ -13,7 +13,7 @@
       </div>
 
       <div class="yhs-footer">
-        <span class="yhs-heart">💙</span>
+        <span class="yhs-heart">💜柏里挑怡</span>
       </div>
     </div>
   </div>
