@@ -46,32 +46,29 @@ import { cdnImg } from '../utils/img.js'
 
 const emit = defineEmits(['slide-change', 'thumb-click'])
 
-const CACHE_VER = 'v4'
-const cacheBust = (src) => `${src}?${CACHE_VER}`
-
 const carouselData = [
   {
-    mainImg: cacheBust(cdnImg('assets/pictures/medium/38.jpg')),
-    thumbImg: cacheBust(cdnImg('assets/pictures/thumb/35.jpg')),
+    mainImg: cdnImg('assets/pictures/medium/38.jpg'),
+    thumbImg: cdnImg('assets/pictures/thumb/35.jpg'),
     label: '心跳花火武汉站',
     title: '柏里挑怡',
     subtitle: '#金曲唯一双冠王',
     author: '@柏欣妤&@朱怡欣'
   },
   {
-    mainImg: cacheBust(cdnImg('assets/pictures/medium/39.jpg')),
-    thumbImg: cacheBust(cdnImg('assets/pictures/thumb/34.jpg')),
+    mainImg: cdnImg('assets/pictures/medium/39.jpg'),
+    thumbImg: cdnImg('assets/pictures/thumb/34.jpg'),
     label: '心跳花火厦门站',
     title: '柏里挑怡',
     subtitle: '#金曲大赏双连冠',
     author: '@柏欣妤&@朱怡欣'
   },
   {
-    mainImg: cacheBust(cdnImg('assets/pictures/medium/37.jpg')),
-    thumbImg: cacheBust(cdnImg('assets/pictures/thumb/36.jpg')),
+    mainImg: cdnImg('assets/pictures/medium/37.jpg'),
+    thumbImg: cdnImg('assets/pictures/thumb/36.jpg'),
     label: '私人信号杭州站',
     title: '柏里挑怡',
-    subtitle: '#我们还有很多岁岁年年',
+    subtitle: '#童话止于圆满，而我们有很多岁岁年年',
     author: '@柏欣妤&@朱怡欣'
   }
 ]
