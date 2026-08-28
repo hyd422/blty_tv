@@ -101,18 +101,25 @@ let sentTimer = null
 
 async function send() {
   if (!canSend.value || sending.value) return
+  const rawName = nickname.value.trim()
+  const text = draft.value.trim()
+  const contactVal = contact.value.trim()
+  // 点击后立即清空页面上的表单，不等网络请求
+  draft.value = ''
+  contact.value = ''
+  nickname.value = ''
   sending.value = true
   boardError.value = ''
-  const name = nickname.value.trim() || '匿名小半'
   try {
-    await sendPrivateMessage({ name, text: draft.value.trim(), contact: contact.value.trim() })
-    draft.value = ''
-    contact.value = ''
-    nickname.value = ''
+    await sendPrivateMessage({ name: rawName || '匿名小半', text, contact: contactVal })
     sent.value = true
     clearTimeout(sentTimer)
     sentTimer = setTimeout(() => (sent.value = false), 6000)
   } catch (e) {
+    // 发送失败时恢复内容，避免重新输入
+    draft.value = text
+    contact.value = contactVal
+    nickname.value = rawName
     boardError.value = e.message || '留言发送失败，请稍后重试'
   } finally {
     sending.value = false
