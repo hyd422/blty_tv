@@ -88,8 +88,8 @@ const buildTimeText = computed(() => {
 })
 
 // ====== 留言表单 ======
-const nickname = ref(localStorage.getItem('yhs_nickname') || '')
-const contact = ref(localStorage.getItem('yhs_contact') || '')
+const nickname = ref('')
+const contact = ref('')
 const draft = ref('')
 const sending = ref(false)
 const sent = ref(false)
@@ -106,9 +106,9 @@ async function send() {
   const name = nickname.value.trim() || '匿名小半'
   try {
     await sendPrivateMessage({ name, text: draft.value.trim(), contact: contact.value.trim() })
-    localStorage.setItem('yhs_nickname', name)
-    localStorage.setItem('yhs_contact', contact.value.trim())
     draft.value = ''
+    contact.value = ''
+    nickname.value = ''
     sent.value = true
     clearTimeout(sentTimer)
     sentTimer = setTimeout(() => (sent.value = false), 6000)
