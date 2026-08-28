@@ -47,15 +47,15 @@ const emit = defineEmits(['video-click'])
 
 // ====== 33张图片数据 (1.jpg ~ 33.jpg)，名称与图片一一对应 ======
 // 每个条目附带 bilibili 跳转链接，未指定具体 BV 号时默认使用 B 站搜索对应标题
-const TOTAL = 34
 const PAGE_SIZE = 9 // 每次加载9张
+const TOTAL = 41
 
 // 默认跳转：B 站搜索对应标题；如需指定具体 BV 号，改为 'https://www.bilibili.com/video/BVxxxxxx' 即可
 const bv = (keyword) => `https://search.bilibili.com/all?keyword=${encodeURIComponent('柏里挑怡 ' + keyword)}`
 
 const videoDataAll = [
-  { title: '不安星',       img: 'assets/pictures/thumb/1.jpg',  bilibili: bv('不安星') },
   { title: '夏之回忆',     img: 'assets/pictures/thumb/2.jpg',  bilibili: bv('夏之回忆') },
+  { title: '不安星',       img: 'assets/pictures/thumb/1.jpg',  bilibili: bv('不安星') },
   { title: '牛奶香槟',     img: 'assets/pictures/thumb/3.jpg',  bilibili: bv('牛奶香槟') },
   { title: '单向镜面',     img: 'assets/pictures/thumb/4.jpg',  bilibili: bv('单向镜面') },
   { title: '升温',         img: 'assets/pictures/thumb/5.jpg',  bilibili: bv('升温') },
@@ -80,13 +80,21 @@ const videoDataAll = [
   { title: '听到请回答',   img: 'assets/pictures/thumb/24.jpg', bilibili: bv('听到请回答') },
   { title: '双人舞',       img: 'assets/pictures/thumb/25.jpg', bilibili: bv('双人舞') },
   { title: '四季的爱恋',   img: 'assets/pictures/thumb/26.jpg', bilibili: bv('四季的爱恋') },
+  { title: 'circle',       img: 'assets/pictures/thumb/90.jpg', bilibili: bv('circle') },
   { title: 'High light',  img: 'assets/pictures/thumb/27.jpg', bilibili: bv('High') },
+  { title: '呓语',      img: 'assets/pictures/thumb/89.jpg', bilibili: bv('呓语') },
   { title: '调和色',       img: 'assets/pictures/thumb/28.jpg', bilibili: bv('调和色') },
   { title: '忧闭',         img: 'assets/pictures/thumb/29.jpg', bilibili: bv('忧闭') },
   { title: 'My Boy',       img: 'assets/pictures/thumb/30.jpg', bilibili: bv('My Boy') },
   { title: 'City light',  img: 'assets/pictures/thumb/31.jpg', bilibili: bv('City') },
   { title: '水蒸气',       img: 'assets/pictures/thumb/32.jpg', bilibili: bv('水蒸气') },
   { title: '暗示',         img: 'assets/pictures/thumb/33.jpg', bilibili: bv('暗示') },
+  { title: '恋',     img: 'assets/pictures/thumb/83.jpg',  bilibili: bv('恋') },
+  { title: '浪漫关系',     img: 'assets/pictures/thumb/84.jpg',  bilibili: bv('浪漫关系') },
+  { title: '丘比特的失误',     img: 'assets/pictures/thumb/85.jpg',  bilibili: bv('丘比特的失误') },
+  { title: '无神论',     img: 'assets/pictures/thumb/86.jpg',  bilibili: bv('无神论') },
+  { title: '爱上你',     img: 'assets/pictures/thumb/87.jpg',  bilibili: bv('爱上你') },
+  { title: '爱情讯息',     img: 'assets/pictures/thumb/88.jpg',  bilibili: bv('爱情讯息') },
 ].map(v => ({ ...v, img: cdnImg(v.img) }))
 
 // ====== 懒加载状态 ======
