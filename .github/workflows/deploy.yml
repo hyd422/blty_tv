@@ -25,6 +25,9 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
+        env:
+          # 私密留言 Web3Forms Access Key（需在仓库 Settings -> Secrets and variables -> Actions 中配置）
+          VITE_W3F_ACCESS_KEY: ${{ secrets.VITE_W3F_ACCESS_KEY }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
