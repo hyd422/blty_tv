@@ -47,7 +47,7 @@ const emit = defineEmits(['item-click'])
 const tangList = ref([
   { title: '曝blty草莓图', count: '爆 486万', tag: '爆', dot: false, link: 'https://www.douban.com/doubanapp/dispatch?uri=%2Fgroup%2Ftopic%2F333112344%3F_spm_id%3DMjU1NTgyNzgz&_i=86721380ae92653&dt_dapp=1' },
   { title: '惊！某cp排练时连环三连啵', count: '327万', tag: '热', dot: false,link:'https://video.weibo.com/show?fid=1034:5329340489990158' },
-  { title: 'bxy被曝身着新郎官哄嫂子', count: '261万', tag: '热', dot: false,link:'https://www.douban.com/doubanapp/dispatch?uri=%2Fgroup%2Ftopic%2F477228377%3F_spm_id%3DMjgzNjkyOTMz&_i=86722408ae92653&dt_dapp=1' },
+  { title: 'bxy被曝身着新郎服哄嫂子', count: '261万', tag: '热', dot: false,link:'https://www.douban.com/doubanapp/dispatch?uri=%2Fgroup%2Ftopic%2F477228377%3F_spm_id%3DMjgzNjkyOTMz&_i=86722408ae92653&dt_dapp=1' },
   { title: '某四字cp泰国偶遇 两人举止亲密 疑似恋情曝光', count: '下午霸榜',sub: '路人爆料 柏欣妤×朱怡欣 私下同框', tag: '', dot: false,link:'https://www.douban.com/doubanapp/dispatch?uri=%2Fgroup%2Ftopic%2F324320539%3F_spm_id%3DMjcxNjE1OTc3&_i=86722816ae92653&dt_dapp=1' },
   { title: '迪士尼小情侣同游被偷拍', count: '183万', tag: '', dot: true, link:' https://v.douyin.com/vC2FZ48MzPc/ :8pm M@J.Iv UYZ:/ 02/20 ' },
   { title: '某艺人节目中当众表白拍档！还是太爱！', count: '168万', tag: '新', dot: false, sub: '台上 朱怡欣突然告白 柏欣妤害羞回应',link:' https://b23.tv/5k8HpI8' },

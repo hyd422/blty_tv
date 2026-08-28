@@ -69,9 +69,9 @@ const carouselData = [
   {
     mainImg: cacheBust(cdnImg('assets/pictures/medium/37.jpg')),
     thumbImg: cacheBust(cdnImg('assets/pictures/thumb/36.jpg')),
-    label: '私人信号',
+    label: '私人信号杭州站',
     title: '柏里挑怡',
-    subtitle: '#双人巡演敬请期待',
+    subtitle: '#我们还有很多岁岁年年',
     author: '@柏欣妤&@朱怡欣'
   }
 ]
