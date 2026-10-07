@@ -322,6 +322,18 @@ function draw() {
 }
 
 // ===== 交互 =====
+// 按屏幕坐标命中星星（tol 为命中容差像素）
+function pickStar(clientX, clientY, tol = 18) {
+  const r = canvasRef.value.getBoundingClientRect()
+  const mx = clientX - r.left, my = clientY - r.top
+  let best = -1, bestD = tol
+  for (const p of projections) {
+    const d = Math.hypot(p.sx - mx, p.sy - my)
+    if (d < bestD) { bestD = d; best = p.idx }
+  }
+  return best
+}
+
 const pointers = new Map() // 活动触点：支持手机双指捏合缩放
 let pinchDist = 0
 
@@ -363,16 +375,9 @@ function onPointerMove(e) {
     target.rotY += dx * 0.005
     if (!is2D.value) target.rotX = Math.max(-1.1, Math.min(1.1, target.rotX + dy * 0.004))
   } else {
-    // 悬停检测
-    const r = canvasRef.value.getBoundingClientRect()
-    const mx = e.clientX - r.left, my = e.clientY - r.top
-    let best = -1, bestD = 18
-    for (const p of projections) {
-      const d = Math.hypot(p.sx - mx, p.sy - my)
-      if (d < bestD) { bestD = d; best = p.idx }
-    }
-    hovered = best
-    canvasRef.value.style.cursor = best >= 0 ? 'pointer' : 'grab'
+    // 悬停检测（桌面鼠标）
+    hovered = pickStar(e.clientX, e.clientY)
+    canvasRef.value.style.cursor = hovered >= 0 ? 'pointer' : 'grab'
   }
 }
 
@@ -388,9 +393,10 @@ function onPointerUp(e) {
     dragDist = 99
   }
   if (pointers.size === 0) {
-    if (dragging && dragDist < 6 && hovered >= 0) {
-      // 打开紫色科幻弹窗，由弹窗内按钮跳转微博
-      selected.value = stars[hovered].e
+    if (dragging && dragDist < 6) {
+      // 点按（含手机触摸）：直接用松手坐标命中，容差 30px 适配手指
+      const hit = pickStar(e.clientX, e.clientY, 30)
+      if (hit >= 0) selected.value = stars[hit].e
     }
     dragging = false
   }
