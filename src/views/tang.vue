@@ -45,7 +45,7 @@ const emit = defineEmits(['item-click'])
 
 // 词条根据现有舞台标题 / 直播 / Re视频等默认填充
 const tangList = ref([
-  { title: '当然啦我们肯定是要住在一起', count: '爆 2236万', tag: '爆', dot: true, link: 'https://weibo.com/3289408751/5350438706874415' },
+  { title: '当然啦我们肯定是要住在一起', count: '爆 2236万', tag: '爆', dot: false, link: 'https://weibo.com/3289408751/5350438706874415' },
   { title: '曝blty草莓图', count: '爆 486万', tag: '爆', dot: false, link: 'https://www.douban.com/doubanapp/dispatch?uri=%2Fgroup%2Ftopic%2F333112344%3F_spm_id%3DMjU1NTgyNzgz&_i=86721380ae92653&dt_dapp=1' },
   { title: '惊！某cp排练时连环三连啵', count: '327万', tag: '热', dot: false,link:'https://video.weibo.com/show?fid=1034:5329340489990158' },
   { title: 'bxy被曝身着新郎服哄嫂子', count: '261万', tag: '热', dot: false,link:'https://www.douban.com/doubanapp/dispatch?uri=%2Fgroup%2Ftopic%2F477228377%3F_spm_id%3DMjgzNjkyOTMz&_i=86722408ae92653&dt_dapp=1' },

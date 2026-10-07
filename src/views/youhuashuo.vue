@@ -401,7 +401,12 @@ onMounted(() => {
   margin: 0 0 20px;
   font-size: 13px;
   letter-spacing: 2px;
-  color: rgba(207, 222, 236, 0.66);
+  color: #1d3153;
+  display: inline-block;
+  padding: 5px 14px;
+  background: rgba(214, 226, 240, 0.88);
+  border-radius: 999px;
+  font-weight: 700;
 }
 
 .hud-status {

@@ -322,17 +322,39 @@ function draw() {
 }
 
 // ===== 交互 =====
+const pointers = new Map() // 活动触点：支持手机双指捏合缩放
+let pinchDist = 0
+
 function onPointerDown(e) {
-  dragging = true
-  dragDist = 0
-  lastX = e.clientX
-  lastY = e.clientY
+  pointers.set(e.pointerId, { x: e.clientX, y: e.clientY })
   autoRotateTimer = 0
-  canvasRef.value.setPointerCapture(e.pointerId)
+  try { canvasRef.value.setPointerCapture(e.pointerId) } catch { /* 模拟事件或 pointer 已释放 */ }
+  if (pointers.size === 1) {
+    dragging = true
+    dragDist = 0
+    lastX = e.clientX
+    lastY = e.clientY
+  } else if (pointers.size === 2) {
+    // 进入双指模式：暂停旋转，记录初始指距
+    dragging = false
+    const pts = [...pointers.values()]
+    pinchDist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y)
+  }
 }
 
 function onPointerMove(e) {
-  if (dragging) {
+  if (pointers.has(e.pointerId)) pointers.set(e.pointerId, { x: e.clientX, y: e.clientY })
+
+  if (pointers.size >= 2) {
+    // 双指捏合：按指距比例缩放
+    const pts = [...pointers.values()]
+    const d = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y)
+    if (pinchDist > 0 && d > 0) {
+      target.zoom = Math.max(0.45, Math.min(3.2, target.zoom * (d / pinchDist)))
+      autoRotateTimer = 0
+    }
+    pinchDist = d
+  } else if (dragging) {
     const dx = e.clientX - lastX
     const dy = e.clientY - lastY
     dragDist += Math.abs(dx) + Math.abs(dy)
@@ -354,12 +376,24 @@ function onPointerMove(e) {
   }
 }
 
-function onPointerUp() {
-  if (dragging && dragDist < 6 && hovered >= 0) {
-    // 打开紫色科幻弹窗，由弹窗内按钮跳转微博
-    selected.value = stars[hovered].e
+function onPointerUp(e) {
+  pointers.delete(e.pointerId)
+  if (pointers.size < 2) pinchDist = 0
+  if (pointers.size === 1) {
+    // 双指变单指：回到拖拽，dragDist 置大防误点开弹窗
+    const p = [...pointers.values()][0]
+    lastX = p.x
+    lastY = p.y
+    dragging = true
+    dragDist = 99
   }
-  dragging = false
+  if (pointers.size === 0) {
+    if (dragging && dragDist < 6 && hovered >= 0) {
+      // 打开紫色科幻弹窗，由弹窗内按钮跳转微博
+      selected.value = stars[hovered].e
+    }
+    dragging = false
+  }
 }
 
 function onKeydown(e) {
@@ -437,16 +471,18 @@ onBeforeUnmount(() => {
 
 .legend-title {
   color: rgba(255, 255, 255, 0.85);
-  font-size: 15px;
-  letter-spacing: 4px;
+  font-size: clamp(10px, 2.8vw, 15px);
+  letter-spacing: clamp(1.5px, 0.5vw, 4px);
   font-weight: 600;
+  white-space: nowrap;
 }
 
 .legend-sub {
   color: rgba(255, 255, 255, 0.35);
-  font-size: 12px;
-  letter-spacing: 2px;
+  font-size: clamp(9px, 2.2vw, 12px);
+  letter-spacing: clamp(1px, 0.4vw, 2px);
   font-family: "Courier New", monospace;
+  white-space: nowrap;
 }
 
 .enter-site {
@@ -456,9 +492,10 @@ onBeforeUnmount(() => {
   background: none;
   border: none;
   color: #fff;
-  font-size: clamp(30px, 4.4vw, 46px);
+  font-size: clamp(22px, 4.4vw, 46px);
   font-weight: 700;
-  letter-spacing: 6px;
+  letter-spacing: clamp(2px, 1vw, 6px);
+  white-space: nowrap;
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -489,19 +526,20 @@ onBeforeUnmount(() => {
   right: 32px;
   bottom: 64px;
   display: flex;
-  gap: 28px;
+  gap: clamp(12px, 3vw, 28px);
 }
 
 .action-link {
   background: none;
   border: none;
   color: rgba(255, 255, 255, 0.5);
-  font-size: 14px;
-  letter-spacing: 3px;
+  font-size: clamp(10px, 2.8vw, 14px);
+  letter-spacing: clamp(1px, 0.5vw, 3px);
   cursor: pointer;
   font-family: "Courier New", monospace;
   transition: color 0.25s;
   padding: 4px;
+  white-space: nowrap;
 }
 
 .action-link:hover {
@@ -513,9 +551,10 @@ onBeforeUnmount(() => {
   left: 32px;
   bottom: 24px;
   color: rgba(255, 255, 255, 0.32);
-  font-size: 12px;
-  letter-spacing: 3px;
+  font-size: clamp(9px, 2.5vw, 12px);
+  letter-spacing: clamp(1px, 0.5vw, 3px);
   font-family: "Courier New", monospace;
+  white-space: nowrap;
   pointer-events: none;}
 
 /* 左下角像素小宠物 */
@@ -714,7 +753,9 @@ onBeforeUnmount(() => {
   }
   .starmap-hint {
     left: 18px;
-    font-size: 10px;
+    bottom: 20px;
+    max-width: calc(100vw - 36px);
+    overflow: hidden;
   }
 }
 </style>

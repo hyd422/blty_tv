@@ -127,7 +127,7 @@ const koudaiList = ref([
 }
 
 .koudai-card:hover .koudai-num {
-  background: linear-gradient(135deg, #bcd3e8, #00be00);
+  background: linear-gradient(135deg, #bcd3e8, #7ea8cc);
   color: #ffffff;
 }
 
