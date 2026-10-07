@@ -63,12 +63,14 @@ const events = ref([])
 const yearRange = ref('')
 const selected = ref(null) // 弹窗中展示的事件
 
-const is2D = ref(false)
+const is2D = ref(true) // 初始即为俯瞰视角
 
 // ===== 相机状态（当前值向目标值阻尼逼近，实现平滑过渡） =====
-const cam = { rotY: 0.4, rotX: -0.1, zoom: 1 }
-const target = { rotY: 0.4, rotX: -0.1, zoom: 1 }
-const DEFAULT_VIEW = { rotY: 0.4, rotX: -0.1, zoom: 1 }
+// 进入星图时初始为俯瞰视角（俯视星环平面）
+const cam = { rotY: 0, rotX: 1.35, zoom: 0.8 }
+const target = { rotY: 0, rotX: 1.35, zoom: 0.8 }
+const DEFAULT_VIEW = { rotY: 0, rotX: 1.35, zoom: 0.8 }
+const VIEW_3D = { rotY: 0.4, rotX: -0.1, zoom: 1 } // 3D 斜视角
 let dragging = false
 let lastX = 0, lastY = 0, dragDist = 0
 let autoRotateTimer = 0
@@ -436,9 +438,11 @@ function onResize() {
 
 function toggle2D() {
   is2D.value = !is2D.value
-  // 2D：俯视星环平面；3D：回到默认斜视角
-  target.rotX = is2D.value ? 1.35 : DEFAULT_VIEW.rotX
-  target.zoom = is2D.value ? 0.8 : DEFAULT_VIEW.zoom
+  // 2D：俯视星环平面（默认视角）；3D：斜视角
+  const v = is2D.value ? DEFAULT_VIEW : VIEW_3D
+  target.rotY = v.rotY
+  target.rotX = v.rotX
+  target.zoom = v.zoom
 }
 
 onMounted(async () => {
