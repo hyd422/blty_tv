@@ -234,8 +234,8 @@ onBeforeUnmount(() => {
 }
 
 .carousel-arrow:hover {
-  background: rgba(0, 231, 0, 0.25);
-  border-color: rgba(0, 231, 0, 0.5);
+  background: rgba(188, 211, 232, 0.25);
+  border-color: rgba(188, 211, 232, 0.5);
 }
 
 .thumb-list {
@@ -267,8 +267,8 @@ onBeforeUnmount(() => {
 }
 
 .thumb-item.active {
-  border-color: #00e700;
-  box-shadow: 0 0 16px rgba(0, 231, 0, 0.4);
+  border-color: #bcd3e8;
+  box-shadow: 0 0 16px rgba(188, 211, 232, 0.4);
 }
 
 .thumb-label {

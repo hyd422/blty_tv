@@ -159,9 +159,9 @@ function onPvClick(item) {
 }
 
 .filter-chip.active {
-  color: #00e700;
-  background: rgba(0, 231, 0, 0.08);
-  border-color: rgba(0, 231, 0, 0.35);
+  color: #bcd3e8;
+  background: rgba(188, 211, 232, 0.08);
+  border-color: rgba(188, 211, 232, 0.35);
   font-weight: 600;
 }
 
@@ -229,7 +229,7 @@ function onPvClick(item) {
   border-radius: 6px;
 }
 
-.tag-mv      { background: rgba(0, 231, 0, 0.82); }
+.tag-mv      { background: rgba(188, 211, 232, 0.82); }
 .tag-bts     { background: rgba(255, 140, 26, 0.9); }
 .tag-fanmade { background: rgba(236, 64, 122, 0.9); }
 
@@ -256,7 +256,7 @@ function onPvClick(item) {
   transform: translate(-50%, -50%) scale(0.8);
   width: 56px;
   height: 56px;
-  background: rgba(0, 231, 0, 0.9);
+  background: rgba(188, 211, 232, 0.9);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -299,7 +299,7 @@ function onPvClick(item) {
 }
 
 .pv-card:hover .pv-title {
-  color: #00e700;
+  color: #bcd3e8;
 }
 
 .pv-meta {

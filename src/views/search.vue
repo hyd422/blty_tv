@@ -43,7 +43,7 @@
       >
         <div class="search-thumb">
           <img
-            :src="item.cover_url"
+            :src="normalizeCoverUrl(item.cover_url)"
             :alt="item.title"
             loading="lazy"
             decoding="async"
@@ -70,22 +70,23 @@
     <div v-if="loading" class="loading-tip">加载中…</div>
     <div v-else-if="loadError" class="loading-tip error">{{ loadError }}</div>
     <div v-else-if="loaded && keyword && visibleList.length === 0" class="empty-tip">
-      <p class="empty-icon">🔍</p>
-      <p>未找到与“{{ keyword }}”相关的内容</p>
+      <PixelPet pet="dog" :size="60" class="empty-pet" />
+      <p>小狗翻遍了也没找到与“{{ keyword }}”相关的内容</p>
       <p class="empty-hint">试试其他关键词，如：柏欣妤、朱怡欣、合拍、汽水音乐节</p>
     </div>
     <div v-else-if="loaded && visibleList.length >= totalFiltered && totalFiltered > 0" class="loading-tip">
       没有更多了 · 共 {{ totalFiltered }} 条
     </div>
     <div v-else-if="!keyword && !loading" class="empty-tip">
-      <p class="empty-icon">🔍</p>
-      <p>在上方输入关键词开始搜索</p>
+      <PixelPet pet="pig" :size="60" class="empty-pet" />
+      <p>小猪猪在等你输入关键词开始搜索</p>
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount, watch } from 'vue'
+import PixelPet from '../components/PixelPet.vue'
 
 const props = defineProps({
   keyword: { type: String, default: '' }
@@ -94,7 +95,7 @@ const props = defineProps({
 // 两个抖音数据源
 const DATA_FILES = [
   { file: '/douyin/creator_contents_2026-08-16.jsonl', source: 'zyx' },          // 朱怡欣
-  { file: '/douyin/creator_contents_2026-08-16_0125yep.jsonl', source: 'bxy' }   // 柏欣妤
+  { file: '/douyin/creator_contents_2026-08-17_0125yep.jsonl', source: 'bxy' }   // 柏欣妤
 ]
 
 const rawList = ref([])         // 合并后的全部数据（带 _source 字段）
@@ -287,6 +288,22 @@ function cleanTitle(title) {
   return title.replace(/\s+/g, ' ').trim()
 }
 
+// 抖音封面 URL 带时效签名（x-expires/x-signature），过期后签名域名返回 403。
+// 改用免签名分发域名并去掉查询参数即可长期访问（部分受限 bucket 除外）。
+function normalizeCoverUrl(url) {
+  if (!url) return ''
+  try {
+    const u = new URL(url)
+    if (u.hostname.endsWith('douyinpic.com')) {
+      u.hostname = 'p3.douyinpic.com'
+      u.search = ''
+    }
+    return u.toString()
+  } catch {
+    return url
+  }
+}
+
 function onImgError(e) {
   e.target.style.background = '#1a1a1a'
   e.target.style.opacity = '0.3'
@@ -336,7 +353,7 @@ function onImgError(e) {
 }
 
 .search-input-bar:focus-within {
-  border-color: rgba(0, 231, 0, 0.4);
+  border-color: rgba(188, 211, 232, 0.4);
   background: rgba(255, 255, 255, 0.08);
 }
 
@@ -364,7 +381,7 @@ function onImgError(e) {
   padding: 0 22px;
   border: none;
   border-radius: 18px;
-  background: linear-gradient(135deg, #00e700, #00be00);
+  background: linear-gradient(135deg, #bcd3e8, #00be00);
   color: #fff;
   font-size: 13px;
   font-weight: 600;
@@ -374,7 +391,7 @@ function onImgError(e) {
 
 .s-btn:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 231, 0, 0.35);
+  box-shadow: 0 4px 12px rgba(188, 211, 232, 0.35);
 }
 
 .s-btn:active {
@@ -411,9 +428,9 @@ function onImgError(e) {
 }
 
 .filter-chip.active {
-  color: #00e700;
-  background: rgba(0, 231, 0, 0.1);
-  border-color: rgba(0, 231, 0, 0.4);
+  color: #bcd3e8;
+  background: rgba(188, 211, 232, 0.1);
+  border-color: rgba(188, 211, 232, 0.4);
 }
 
 .chip-count {
@@ -429,8 +446,8 @@ function onImgError(e) {
 }
 
 .filter-chip.active .chip-count {
-  background: rgba(0, 231, 0, 0.2);
-  color: #00e700;
+  background: rgba(188, 211, 232, 0.2);
+  color: #bcd3e8;
 }
 
 .search-grid {
@@ -453,8 +470,8 @@ function onImgError(e) {
 }
 
 .search-card:hover {
-  background: rgba(0, 231, 0, 0.05);
-  border-color: rgba(0, 231, 0, 0.25);
+  background: rgba(188, 211, 232, 0.05);
+  border-color: rgba(188, 211, 232, 0.25);
   transform: translateY(-4px);
 }
 
@@ -507,12 +524,14 @@ function onImgError(e) {
   color: #fff;
 }
 
+/* 来源标签配色：朱怡欣=蓝色，柏欣妤=银色 */
 .src-zyx {
-  background: rgba(0, 231, 0, 0.85);
+  background: linear-gradient(135deg, #4a9dff, #2f7bff);
 }
 
 .src-bxy {
-  background: rgba(86, 156, 255, 0.9);
+  background: linear-gradient(135deg, #f2f2f2, #bdbdbd);
+  color: #1a1a1a;
 }
 
 /* 共创标签：金色，叠加在来源标签下方 */

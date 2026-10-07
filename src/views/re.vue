@@ -155,9 +155,9 @@ function onReClick(item) {
 }
 
 .filter-chip.active {
-  color: #00e700;
-  background: rgba(0, 231, 0, 0.08);
-  border-color: rgba(0, 231, 0, 0.35);
+  color: #bcd3e8;
+  background: rgba(188, 211, 232, 0.08);
+  border-color: rgba(188, 211, 232, 0.35);
   font-weight: 600;
 }
 
@@ -224,7 +224,7 @@ function onReClick(item) {
   font-size: 11px;
   font-weight: 600;
   color: #ffffff;
-  background: rgba(0, 231, 0, 0.82);
+  background: rgba(188, 211, 232, 0.82);
   padding: 3px 10px;
   border-radius: 6px;
 }
@@ -252,7 +252,7 @@ function onReClick(item) {
   transform: translate(-50%, -50%) scale(0.8);
   width: 56px;
   height: 56px;
-  background: rgba(0, 231, 0, 0.9);
+  background: rgba(188, 211, 232, 0.9);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -295,7 +295,7 @@ function onReClick(item) {
 }
 
 .re-card:hover .re-title {
-  color: #00e700;
+  color: #bcd3e8;
 }
 
 .re-meta {

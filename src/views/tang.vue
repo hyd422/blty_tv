@@ -45,6 +45,7 @@ const emit = defineEmits(['item-click'])
 
 // 词条根据现有舞台标题 / 直播 / Re视频等默认填充
 const tangList = ref([
+  { title: '当然啦我们肯定是要住在一起', count: '爆 2236万', tag: '爆', dot: true, link: 'https://weibo.com/3289408751/5350438706874415' },
   { title: '曝blty草莓图', count: '爆 486万', tag: '爆', dot: false, link: 'https://www.douban.com/doubanapp/dispatch?uri=%2Fgroup%2Ftopic%2F333112344%3F_spm_id%3DMjU1NTgyNzgz&_i=86721380ae92653&dt_dapp=1' },
   { title: '惊！某cp排练时连环三连啵', count: '327万', tag: '热', dot: false,link:'https://video.weibo.com/show?fid=1034:5329340489990158' },
   { title: 'bxy被曝身着新郎服哄嫂子', count: '261万', tag: '热', dot: false,link:'https://www.douban.com/doubanapp/dispatch?uri=%2Fgroup%2Ftopic%2F477228377%3F_spm_id%3DMjgzNjkyOTMz&_i=86722408ae92653&dt_dapp=1' },
@@ -125,7 +126,8 @@ function onItemClick(item) {
 }
 
 .hot-list {
-  background: #141414;
+  background: rgba(15, 27, 40, 0.72);
+  border: 1px solid rgba(160, 190, 215, 0.14);
   border-radius: 14px;
   overflow: hidden;
   padding: 4px 0;
@@ -183,7 +185,7 @@ function onItemClick(item) {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #ff8c1a;
+  background: rgba(224, 160, 96, 0.9);
   flex-shrink: 0;
 }
 
@@ -216,11 +218,11 @@ function onItemClick(item) {
   white-space: nowrap;
 }
 
-.tag-red { background: #ff3838; }
-.tag-dark-red { background: #c91313; }
-.tag-blue { background: #2f75ff; }
-.tag-green { background: #1fb97c; }
-.tag-orange { background: #ff8c1a; }
+.tag-red { background: rgba(224, 106, 106, 0.85); }
+.tag-dark-red { background: rgba(180, 62, 74, 0.9); }
+.tag-blue { background: rgba(96, 140, 200, 0.9); }
+.tag-green { background: rgba(110, 170, 205, 0.9); }
+.tag-orange { background: rgba(224, 160, 96, 0.9); }
 
 @media (max-width: 640px) {
   .hot-item {

@@ -109,6 +109,7 @@ const videoDataAll = [
   { title: '无神论',     img: 'assets/pictures/thumb/86.jpg',  times: ['2026-08-22'], bilibili: bv('无神论') },
   { title: '爱上你',     img: 'assets/pictures/thumb/87.jpg',  times: ['2026-08-22'], bilibili: bv('爱上你') },
   { title: '爱情讯息',     img: 'assets/pictures/thumb/88.jpg',  times: ['2026-08-22'], bilibili: bv('爱情讯息') },
+  { title: '爱情养成日记',     img: 'assets/pictures/thumb/91.jpg',  times: ['2026-10-04'], bilibili: bv('爱情养成日记') },
 ].map(v => ({ ...v, img: cdnImg(v.img) }))
 
 const TOTAL = videoDataAll.length
@@ -230,7 +231,7 @@ function onVideoClick(video) {
 }
 
 .sort-select:hover {
-  border-color: rgba(0, 231, 0, 0.4);
+  border-color: rgba(188, 211, 232, 0.4);
 }
 
 .sort-select option {
@@ -325,7 +326,7 @@ function onVideoClick(video) {
   transform: translate(-50%, -50%) scale(0.8);
   width: 56px;
   height: 56px;
-  background: rgba(0, 231, 0, 0.9);
+  background: rgba(188, 211, 232, 0.9);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -378,7 +379,7 @@ function onVideoClick(video) {
 }
 
 .video-card:hover .video-title {
-  color: #00e700;
+  color: #bcd3e8;
 }
 
 /* 时间描述：完整展示所有时间，第一个（排序基准）绿色高亮 */
@@ -402,9 +403,9 @@ function onVideoClick(video) {
 }
 
 .time-chip.first {
-  color: #00e700;
-  background: rgba(0, 231, 0, 0.1);
-  border-color: rgba(0, 231, 0, 0.25);
+  color: #bcd3e8;
+  background: rgba(188, 211, 232, 0.1);
+  border-color: rgba(188, 211, 232, 0.25);
 }
 
 .video-tags {
@@ -423,8 +424,8 @@ function onVideoClick(video) {
 }
 
 .video-tag:hover {
-  background: rgba(0, 231, 0, 0.12);
-  color: #00e700;
+  background: rgba(188, 211, 232, 0.12);
+  color: #bcd3e8;
 }
 
 /* 懒加载哨兵 */

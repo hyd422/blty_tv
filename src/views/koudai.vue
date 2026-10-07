@@ -38,7 +38,7 @@ const emit = defineEmits(['koudai-click'])
 // 4 个口袋爱 / 时间线整理板块，点击跳转微博
 const koudaiList = ref([
   {
-    title: '22-24年6月的整理',
+    title: '22-25年11月的整理',
     link: 'https://www.douban.com/link2/?url=https%3A%2F%2Fweibo.com%2Fu%2F7929103261'
   },
   {
@@ -106,8 +106,8 @@ const koudaiList = ref([
 }
 
 .koudai-card:hover {
-  background: rgba(0, 231, 0, 0.06);
-  border-color: rgba(0, 231, 0, 0.3);
+  background: rgba(188, 211, 232, 0.06);
+  border-color: rgba(188, 211, 232, 0.3);
   transform: translateX(4px);
 }
 
@@ -116,18 +116,18 @@ const koudaiList = ref([
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: linear-gradient(135deg, rgba(0, 231, 0, 0.2), rgba(0, 190, 0, 0.15));
+  background: linear-gradient(135deg, rgba(188, 211, 232, 0.2), rgba(150, 178, 204, 0.15));
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 18px;
   font-weight: 800;
-  color: #00e700;
+  color: #bcd3e8;
   letter-spacing: 1px;
 }
 
 .koudai-card:hover .koudai-num {
-  background: linear-gradient(135deg, #00e700, #00be00);
+  background: linear-gradient(135deg, #bcd3e8, #00be00);
   color: #ffffff;
 }
 
@@ -145,7 +145,7 @@ const koudaiList = ref([
 }
 
 .koudai-card:hover .koudai-title {
-  color: #00e700;
+  color: #bcd3e8;
 }
 
 .koudai-date {
@@ -179,8 +179,8 @@ const koudaiList = ref([
 }
 
 .koudai-card:hover .koudai-arrow {
-  background: rgba(0, 231, 0, 0.15);
-  color: #00e700;
+  background: rgba(188, 211, 232, 0.15);
+  color: #bcd3e8;
   transform: translateX(4px);
 }
 

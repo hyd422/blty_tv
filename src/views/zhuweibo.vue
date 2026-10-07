@@ -477,7 +477,7 @@ function openNote(url) {
 }
 
 .search-input-bar:focus-within {
-  border-color: rgba(0, 231, 0, 0.4);
+  border-color: rgba(188, 211, 232, 0.4);
   background: rgba(255, 255, 255, 0.08);
 }
 
@@ -526,8 +526,8 @@ function openNote(url) {
   padding: 0 24px;
   border: none;
   border-radius: 20px;
-  background: linear-gradient(135deg, #00e700, #00be00);
-  color: #fff;
+  background: linear-gradient(135deg, #eef1f5, #a9b3bd);
+  color: #1c2733;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
@@ -536,7 +536,7 @@ function openNote(url) {
 
 .s-btn:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 231, 0, 0.35);
+  box-shadow: 0 4px 12px rgba(200, 210, 220, 0.35);
 }
 
 /* 账号筛选行 */
@@ -645,7 +645,7 @@ function openNote(url) {
 }
 
 .time-input:focus {
-  border-color: rgba(0, 231, 0, 0.4);
+  border-color: rgba(188, 211, 232, 0.4);
   background: rgba(255, 255, 255, 0.08);
 }
 
@@ -667,9 +667,9 @@ function openNote(url) {
 }
 
 .time-quick:hover {
-  background: rgba(0, 231, 0, 0.1);
-  border-color: rgba(0, 231, 0, 0.2);
-  color: #00e700;
+  background: rgba(188, 211, 232, 0.1);
+  border-color: rgba(188, 211, 232, 0.2);
+  color: #bcd3e8;
 }
 
 .time-clear {
@@ -717,9 +717,9 @@ function openNote(url) {
 }
 
 .sort-chip.active {
-  color: #00e700;
-  background: rgba(0, 231, 0, 0.1);
-  border-color: rgba(0, 231, 0, 0.3);
+  color: #bcd3e8;
+  background: rgba(188, 211, 232, 0.1);
+  border-color: rgba(188, 211, 232, 0.3);
 }
 
 .active-filters {
@@ -762,7 +762,7 @@ function openNote(url) {
 
 .filter-result-count {
   font-size: 12px;
-  color: #00e700;
+  color: #bcd3e8;
   font-weight: 600;
 }
 
@@ -872,19 +872,19 @@ function openNote(url) {
 
 .foot-link {
   font-size: 12px;
-  color: #00e700;
+  color: #bcd3e8;
   font-weight: 600;
   margin-left: auto;
   padding: 4px 10px;
   border-radius: 12px;
-  background: rgba(0, 231, 0, 0.08);
+  background: rgba(188, 211, 232, 0.08);
   cursor: pointer;
   transition: all 0.2s;
   white-space: nowrap;
 }
 
 .foot-link:hover {
-  background: rgba(0, 231, 0, 0.2);
+  background: rgba(188, 211, 232, 0.2);
   transform: translateY(-1px);
 }
 

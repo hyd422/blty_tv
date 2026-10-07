@@ -1,4 +1,7 @@
 <template>
+  <!-- 微博星图落地门页：点击"进入网站"后才显示主站 -->
+  <Starmap v-if="showStarmap" @enter="showStarmap = false" />
+
   <!-- 顶部导航栏：放在 .app-root 外部，
        避免 .app-root 的 overflow-x:hidden 导致 iOS Safari 下 fixed 失效 -->
   <Navbar
@@ -66,16 +69,10 @@
           @koudai-click="onKoudaiClick"
         />
 
-        <!-- 朱怡欣抖音 -->
-        <Zhudou
-          v-else-if="activePage === 'zhudou'"
-          @zhudou-click="onZhudouClick"
-        />
-
-        <!-- 柏欣妤抖音 -->
-        <Baidou
-          v-else-if="activePage === 'baidou'"
-          @baidou-click="onBaidouClick"
+        <!-- 抖音（朱怡欣 + 柏欣妤合并） -->
+        <Douyin
+          v-else-if="activePage === 'douyin'"
+          @douyin-click="onDouyinClick"
         />
 
         <!-- 搜索结果 -->
@@ -105,6 +102,12 @@
     </div>
   </div>
 
+  <!-- 左下角像素小宠物：常驻彩蛋，点击会跳起来说话 -->
+  <div class="pet-corner">
+    <PixelPet pet="pig" :size="50" />
+    <PixelPet pet="dog" :size="50" />
+  </div>
+
   <!-- 一键回顶按钮：同样放在外部，确保 fixed 正常工作 -->
   <transition name="fade-slide">
     <button
@@ -122,7 +125,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
 import Navbar from './components/Navbar.vue'
 import Sidebar from './components/Sidebar.vue'
 import Carousel from './components/Carousel.vue'
@@ -134,8 +137,9 @@ import ReVideos from './views/re.vue'
 import Tang from './views/tang.vue'
 import Pv from './views/pv.vue'
 import Koudai from './views/koudai.vue'
-import Zhudou from './views/zhudou.vue'
-import Baidou from './views/baidou.vue'
+import Douyin from './views/douyin.vue'
+import Starmap from './views/starmap.vue'
+import PixelPet from './components/PixelPet.vue'
 import Search from './views/search.vue'
 import Zhuweibo from './views/zhuweibo.vue'
 import Baiweibo from './views/baiweibo.vue'
@@ -143,6 +147,14 @@ import Youhuashuo from './views/youhuashuo.vue'
 
 // ===== 当前页面 =====
 const activePage = ref('home')
+
+// 微博星图门页：首次进入时全屏展示
+const showStarmap = ref(true)
+
+// 星图展示期间锁定页面滚动
+watch(showStarmap, (v) => {
+  document.body.style.overflow = v ? 'hidden' : ''
+}, { immediate: true })
 
 // 搜索关键词（传给 Search 页面）
 const searchKeyword = ref('')
@@ -182,8 +194,9 @@ const menuPageMap = {
   'pv': 'pv',
   '口袋爱/时间线': 'koudai',
   '口袋爱/时间线整理': 'koudai',
-  '朱怡欣抖音': 'zhudou',
-  '柏欣妤抖音': 'baidou',
+  '抖音': 'douyin',
+  '朱怡欣抖音': 'douyin', // 兼容旧名称
+  '柏欣妤抖音': 'douyin', // 兼容旧名称
   '朱怡欣微博': 'zhuweibo',
   '柏欣妤微博': 'baiweibo',
   '有话说': 'youhuashuo'
@@ -198,11 +211,10 @@ const pageIndexMap = {
   tang: 4,
   pv: 5,
   koudai: 6,
-  zhudou: 7,
-  baidou: 8,
-  zhuweibo: 9,
-  baiweibo: 10,
-  youhuashuo: 11
+  douyin: 7,
+  zhuweibo: 8,
+  baiweibo: 9,
+  youhuashuo: 10
 }
 
 const activeSidebarIndex = () => {
@@ -286,15 +298,7 @@ function onKoudaiClick(item) {
   }
 }
 
-function onZhudouClick(item) {
-  if (item.aweme_url) {
-    console.log('[App] 已在新标签打开抖音：', item.title)
-  } else {
-    console.log('[App] 点击抖音内容：', item.title)
-  }
-}
-
-function onBaidouClick(item) {
+function onDouyinClick(item) {
   if (item.aweme_url) {
     console.log('[App] 已在新标签打开抖音：', item.title)
   } else {
@@ -367,7 +371,7 @@ onBeforeUnmount(() => {
 
 html, body {
   font-family: "Microsoft YaHei", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
-  background-color: #0a0a0a;
+  background-color: transparent;
   color: #ffffff;
   min-height: 100vh;
   width: 100%;
@@ -375,6 +379,37 @@ html, body {
      否则 iOS Safari 下 position:fixed 会失效（navbar 不再吸顶）。
      横向溢出改由 .app-root 接管。 */
   -webkit-overflow-scrolling: touch;
+}
+
+/* 深空夜幕：html 上铺宇宙渐变，body::before 铺星野与星球辉光（z-index:-1，位于所有内容之下） */
+html {
+  background: linear-gradient(180deg, #0e1926 0%, #142334 42%, #1b3045 78%, #223c54 100%) fixed;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    /* 星野：细小星点 */
+    radial-gradient(1px 1px at 8% 14%, rgba(214, 228, 240, 0.7) 50%, transparent 51%),
+    radial-gradient(1px 1px at 22% 68%, rgba(214, 228, 240, 0.45) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 34% 30%, rgba(226, 238, 248, 0.6) 50%, transparent 51%),
+    radial-gradient(1px 1px at 47% 82%, rgba(214, 228, 240, 0.4) 50%, transparent 51%),
+    radial-gradient(1px 1px at 58% 18%, rgba(226, 238, 248, 0.55) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 69% 55%, rgba(214, 228, 240, 0.5) 50%, transparent 51%),
+    radial-gradient(1px 1px at 78% 36%, rgba(226, 238, 248, 0.45) 50%, transparent 51%),
+    radial-gradient(1px 1px at 88% 76%, rgba(214, 228, 240, 0.5) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 94% 10%, rgba(226, 238, 248, 0.55) 50%, transparent 51%),
+    radial-gradient(1px 1px at 15% 90%, rgba(214, 228, 240, 0.35) 50%, transparent 51%),
+    /* 星球辉光：右下巨大的暗色星球弧顶 */
+    radial-gradient(circle 560px at 88% 108%, rgba(120, 152, 182, 0.16) 0%, rgba(84, 116, 148, 0.1) 55%, rgba(40, 62, 86, 0.04) 72%, transparent 78%),
+    /* 星球边缘细环 */
+    radial-gradient(circle 560px at 88% 108%, transparent 77.2%, rgba(196, 216, 234, 0.14) 78%, transparent 79%),
+    /* 左上淡星云 */
+    radial-gradient(ellipse 480px 300px at 12% 4%, rgba(96, 130, 164, 0.1), transparent 70%);
 }
 
 #app {
@@ -440,7 +475,7 @@ html, body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #0a0a0a;
+  background: rgba(14, 25, 38, 0.9);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -449,7 +484,46 @@ html, body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 231, 0, 0.4);
+  background: rgba(188, 211, 232, 0.4);
+}
+
+/* ===== 左下角像素小宠物 ===== */
+.pet-corner {
+  position: fixed;
+  left: 196px;
+  bottom: 20px;
+  z-index: 998;
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  padding: 0 12px;
+  pointer-events: auto;
+}
+
+/* 星光地面光晕，让宠物像站在小片月光上 */
+.pet-corner::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 12px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(150, 182, 210, 0.28), rgba(150, 182, 210, 0.08) 60%, transparent 75%);
+  pointer-events: none;
+}
+
+@media (max-width: 992px) {
+  .pet-corner {
+    left: 80px;
+  }
+}
+
+@media (max-width: 768px) {
+  .pet-corner {
+    left: 12px;
+    bottom: 14px;
+  }
 }
 
 /* ===== 一键回顶按钮 ===== */
@@ -463,11 +537,11 @@ html, body {
   border: none;
   border-radius: 50%;
   cursor: pointer;
-  background: linear-gradient(135deg, rgba(0, 231, 0, 0.95), rgba(0, 190, 0, 0.95));
+  background: linear-gradient(135deg, rgba(188, 211, 232, 0.95), rgba(150, 178, 204, 0.95));
   color: #ffffff;
   box-shadow:
-    0 4px 18px rgba(0, 231, 0, 0.35),
-    0 0 0 4px rgba(0, 231, 0, 0.08);
+    0 4px 18px rgba(188, 211, 232, 0.35),
+    0 0 0 4px rgba(188, 211, 232, 0.08);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -477,8 +551,8 @@ html, body {
 .back-to-top:hover {
   transform: translateY(-3px);
   box-shadow:
-    0 8px 24px rgba(0, 231, 0, 0.45),
-    0 0 0 4px rgba(0, 231, 0, 0.14);
+    0 8px 24px rgba(188, 211, 232, 0.45),
+    0 0 0 4px rgba(188, 211, 232, 0.14);
 }
 
 .back-to-top:active {

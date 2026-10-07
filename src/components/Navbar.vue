@@ -89,7 +89,7 @@ function onAvatarClick() {
   left: 0;
   right: 0;
   height: 56px;
-  background: rgba(17, 17, 17, 0.92);
+  background: rgba(13, 22, 34, 0.88);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   display: flex;
@@ -97,7 +97,7 @@ function onAvatarClick() {
   justify-content: space-between;
   padding: 0 24px;
   z-index: 1000;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(160, 190, 215, 0.14);
 }
 
 .nav-left {
@@ -117,7 +117,7 @@ function onAvatarClick() {
 
 .logo-bly {
   font-size: 20px;
-  color: #00e700;
+  color: #bcd3e8;
   letter-spacing: 1px;
 }
 
@@ -137,8 +137,8 @@ function onAvatarClick() {
 .search-box input {
   width: 100%;
   height: 36px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(150, 182, 210, 0.08);
+  border: 1px solid rgba(160, 190, 215, 0.18);
   border-radius: 18px;
   padding: 0 40px 0 40px;
   color: #ffffff;
@@ -152,8 +152,8 @@ function onAvatarClick() {
 }
 
 .search-box input:focus {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(0, 231, 0, 0.4);
+  background: rgba(150, 182, 210, 0.12);
+  border-color: rgba(188, 211, 232, 0.45);
 }
 
 .search-icon {
@@ -185,8 +185,8 @@ function onAvatarClick() {
 }
 
 .search-tags span:hover {
-  background: rgba(0, 231, 0, 0.15);
-  color: #00e700;
+  background: rgba(188, 211, 232, 0.15);
+  color: #bcd3e8;
 }
 
 .nav-right {
@@ -230,7 +230,7 @@ function onAvatarClick() {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  border: 2px solid rgba(0, 231, 0, 0.5);
+  border: 2px solid rgba(188, 211, 232, 0.5);
   cursor: pointer;
   object-fit: cover;
 }

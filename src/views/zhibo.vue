@@ -238,7 +238,7 @@ function onLiveClick(item) {
   font-size: 12px;
   font-weight: 600;
   color: #ffffff;
-  background: rgba(0, 231, 0, 0.85);
+  background: rgba(188, 211, 232, 0.85);
   padding: 3px 10px;
   border-radius: 6px;
 }
@@ -278,7 +278,7 @@ function onLiveClick(item) {
   transform: translate(-50%, -50%) scale(0.8);
   width: 56px;
   height: 56px;
-  background: rgba(0, 231, 0, 0.9);
+  background: rgba(188, 211, 232, 0.9);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -317,7 +317,7 @@ function onLiveClick(item) {
 }
 
 .live-card:hover .live-title {
-  color: #00e700;
+  color: #bcd3e8;
 }
 
 .live-date {

@@ -43,6 +43,17 @@ const emit = defineEmits(['item-click'])
 
 // 模仿图片中的微博热搜榜单
 const hotList = ref([
+  { title: '小白猪十一封读信文字版完整合集（截至2026-10-04）', count: '755762', tag: '爆', dot: true, link: 'https://weibo.com/7455581380/5185466305613985' },
+  { title: '台北101豆列合集（必看）', count: '755762', tag: '爆', dot: true, link: 'https://www.douban.com/doulist/154218264/?dt_dapp=1' },
+  { title: '亿些猪喜欢主动搞颜色的证据', count: '672762', tag: '新', dot: false, link: 'https://www.douban.com/doubanapp/dispatch?uri=%2Fgroup%2Ftopic%2F500025907%3F_spm_id%3DMjcyMzY0NjI3&_i=91306382ae92653&dt_dapp=1' },
+  { title: '亿些狗是服务型小狗的证据', count: '835762', tag: '新', dot: false, link: 'https://www.douban.com/doubanapp/dispatch?uri=%2Fgroup%2Ftopic%2F500518960%3F_spm_id%3DMjcyMzY0NjI3&_i=91306586ae92653&dt_dapp=1' },
+  { title: '亿个小发现，猪竟然不会挠人', count: '654282', tag: '新', dot: false, link: 'https://www.douban.com/doubanapp/dispatch?uri=%2Fgroup%2Ftopic%2F500705356%3F_spm_id%3DMjcyMzY0NjI3&_i=91306707ae92653&dt_dapp=1' },
+  { title: '狗喜欢强制爱的证据', count: '932282', tag: '新', dot: false, link: 'https://www.douban.com/doubanapp/dispatch?uri=%2Fgroup%2Ftopic%2F501144899%3F_spm_id%3DMjcyMzY0NjI3&_i=91306792ae92653&dt_dapp=1' },
+  { title: '狗是如何把猪撩到六秒烧红猪耳的', count: '654422', tag: '新', dot: false, link: 'https://www.douban.com/doubanapp/dispatch?uri=%2Fgroup%2Ftopic%2F501653362%3F_spm_id%3DMjcyMzY0NjI3&_i=91306859ae92653&dt_dapp=1' },
+  { title: '今年中秋构筑又谈美啦！！！', count: '4382422', tag: '新', dot: false, link: 'https://www.douban.com/doubanapp/dispatch?uri=%2Fgroup%2Ftopic%2F500882804%3F_spm_id%3DMjI3NTI3NTQx&_i=91306950ae92653&dt_dapp=1' },
+  { title: '22年1.9-3.16现炒大餐', count: '125422227', tag: '新', dot: false, link: 'https://www.douban.com/doubanapp/dispatch?uri=%2Fgroup%2Ftopic%2F500076685%3F_spm_id%3DMjQyMzkyNDU5&_i=91307118ae92653&dt_dapp=1' },
+  { title: '22年3.17-4.22现炒大餐', count: '3721894', tag: '新', dot: false, link: 'https://www.douban.com/doubanapp/dispatch?uri=%2Fgroup%2Ftopic%2F500696067%3F_spm_id%3DMjQyMzkyNDU5&_i=91307297ae92653&dt_dapp=1' },
+  { title: '22年4.23-7.19现炒大餐', count: '461874', tag: '新', dot: false, link: 'https://www.douban.com/doubanapp/dispatch?uri=%2Fgroup%2Ftopic%2F501142713%3F_spm_id%3DMjQyMzkyNDU5&_i=91307331ae92653&dt_dapp=1' },
   { title: '我的心是一个下雨的小水滩', count: '472762', tag: '热', dot: false, link: 'https://www.douban.com/doubanapp/dispatch?uri=%2Fgroup%2Ftopic%2F326179768%3F_spm_id%3DMTk4NTI3MDg2&_i=87909994ae92653&dt_dapp=1' },
   { title: '傲娇猪到底有多爱', count: '下午爆词', tag: '热', dot: false, link: 'https://www.douban.com/doubanapp/dispatch?uri=%2Fgroup%2Ftopic%2F291617420%3F_spm_id%3DMjM5MDc3NzY0&_i=86716693ae92653&dt_dapp=1' },
   { title: '侄女狗的一步步沦陷', count: '135762', tag: '', dot: false, link: 'https://www.douban.com/doubanapp/dispatch?uri=%2Fgroup%2Ftopic%2F291614919%3F_spm_id%3DMTg4MDUxNTk4&_i=86716813ae92653&dt_dapp=1' },
@@ -149,7 +160,8 @@ function onItemClick(item) {
 }
 
 .hot-list {
-  background: #141414;
+  background: rgba(15, 27, 40, 0.72);
+  border: 1px solid rgba(160, 190, 215, 0.14);
   border-radius: 14px;
   overflow: hidden;
   padding: 4px 0;
@@ -209,7 +221,7 @@ function onItemClick(item) {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #ff8c1a;
+  background: rgba(224, 160, 96, 0.9);
   flex-shrink: 0;
 }
 
@@ -247,23 +259,23 @@ function onItemClick(item) {
 }
 
 .tag-red {
-  background: #ff3838;
+  background: rgba(224, 106, 106, 0.85);
 }
 
 .tag-dark-red {
-  background: #c91313;
+  background: rgba(180, 62, 74, 0.9);
 }
 
 .tag-blue {
-  background: #2f75ff;
+  background: rgba(96, 140, 200, 0.9);
 }
 
 .tag-green {
-  background: #1fb97c;
+  background: rgba(110, 170, 205, 0.9);
 }
 
 .tag-orange {
-  background: #ff8c1a;
+  background: rgba(224, 160, 96, 0.9);
 }
 
 /* 子条目附加的 tag */
@@ -275,8 +287,8 @@ function onItemClick(item) {
   font-weight: 600;
 }
 
-.hot-sub :deep(.sub-tag-blue) { background: #2f75ff; }
-.hot-sub :deep(.sub-tag-orange) { background: #ff8c1a; }
+.hot-sub :deep(.sub-tag-blue) { background: rgba(96, 140, 200, 0.9); }
+.hot-sub :deep(.sub-tag-orange) { background: rgba(224, 160, 96, 0.9); }
 
 @media (max-width: 640px) {
   .hot-item {

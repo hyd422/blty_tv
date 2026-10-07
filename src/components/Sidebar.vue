@@ -37,8 +37,7 @@ const menuList = [
   { icon: '🎞', name: '那些很锤的糖' },
   { icon: '🎤', name: 'PV' },
   { icon: '♡', name: '口袋爱/时间线' },
-  { icon: '🎵', name: '朱怡欣抖音' },
-  { icon: '🎵', name: '柏欣妤抖音' },
+  { icon: '🎵', name: '抖音' },
   { icon: '🐽', name: '朱怡欣微博' },
   { icon: '🐶', name: '柏欣妤微博' },
   { icon: '💬', name: '有话说' }
@@ -53,8 +52,10 @@ function onMenuClick(idx) {
 <style scoped>
 .sidebar {
   width: 180px;
-  background: #111111;
-  border-right: 1px solid rgba(255, 255, 255, 0.04);
+  background: rgba(13, 22, 34, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-right: 1px solid rgba(160, 190, 215, 0.1);
   padding-top: 20px;
   position: fixed;
   top: 56px;
@@ -76,20 +77,20 @@ function onMenuClick(idx) {
   padding: 14px 24px;
   cursor: pointer;
   transition: all 0.25s;
-  color: rgba(255, 255, 255, 0.65);
+  color: rgba(208, 224, 238, 0.6);
   font-size: 14px;
-  border-left: 3px solid transparent;
+  border-left: 2px solid transparent;
 }
 
 .menu-item:hover {
-  background: rgba(255, 255, 255, 0.04);
-  color: rgba(255, 255, 255, 0.9);
+  background: rgba(160, 190, 215, 0.07);
+  color: rgba(228, 240, 250, 0.95);
 }
 
 .menu-item.active {
-  background: rgba(0, 231, 0, 0.08);
-  color: #00e700;
-  border-left-color: #00e700;
+  background: rgba(188, 211, 232, 0.08);
+  color: #bcd3e8;
+  border-left-color: #bcd3e8;
   font-weight: 600;
 }
 
@@ -100,7 +101,7 @@ function onMenuClick(idx) {
 }
 
 .menu-item.active .menu-icon {
-  color: #00e700;
+  color: #bcd3e8;
 }
 
 @media (max-width: 992px) {
@@ -145,7 +146,7 @@ function onMenuClick(idx) {
   }
   .menu-item.active {
     border-left: none;
-    border-bottom-color: #00e700;
+    border-bottom-color: #bcd3e8;
   }
 }
 </style>
