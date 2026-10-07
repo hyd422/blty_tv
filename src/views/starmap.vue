@@ -21,7 +21,7 @@
     </div>
 
     <!-- 底部提示 -->
-    <div class="starmap-hint">DRAG 旋转 · SCROLL 缩放 · CLICK 打开坐标</div>
+    <div class="starmap-hint">DRAG 旋转 · SCROLL 缩放 · CLICK 点击星星查看事件</div>
 
     <!-- 左下角像素小宠物：陪你一起看星空 -->
     <div class="starmap-pets">
@@ -29,15 +29,16 @@
       <PixelPet pet="dog" :size="46" />
     </div>
 
-    <!-- 坐标详情弹窗：紫色科幻风，点击按钮跳转微博 -->
+    <!-- 坐标详情弹窗：黑底蓝紫星环风，点击按钮跳转微博 -->
     <transition name="modal">
       <div v-if="selected" class="coord-modal" @click.self="selected = null">
         <div class="coord-panel">
-          <span class="corner tl"></span><span class="corner tr"></span>
-          <span class="corner bl"></span><span class="corner br"></span>
-          <div class="coord-scan"></div>
+          <!-- 星环装饰层 -->
+          <span class="ring r1"></span><span class="ring r2"></span><span class="ring r3"></span>
+          <span class="brush"></span>
+          <span class="dust"></span>
           <div class="coord-topbar">
-            <span class="coord-status">◉ COORDINATE LOCKED · 坐标已锁定</span>
+            <span class="coord-status">◉COORDINATE LOCKED·坐标已锁定</span>
             <button class="coord-close" @click="selected = null">✕</button>
           </div>
           <div class="coord-date">{{ selected.d }}</div>
@@ -109,6 +110,11 @@ function buildStars(list) {
     labelSet.add(e)
   }
 
+  // 星环半径按视口自适应：保证最外圈在默认缩放下也在屏幕内、可点击
+  const cv = canvasRef.value
+  const minDim = Math.min(cv?.clientWidth || window.innerWidth, cv?.clientHeight || window.innerHeight)
+  const ringScale = minDim / 1820
+
   stars = list.map(e => {
     const y = +e.d.slice(0, 4)
     const mo = +e.d.slice(4, 6)
@@ -116,9 +122,9 @@ function buildStars(list) {
     const dayOfYear = Math.floor((Date.UTC(y, mo - 1, d) - Date.UTC(y, 0, 1)) / 86400000)
     const daysInYear = (y % 4 === 0 && y % 100 !== 0) || y % 400 === 0 ? 366 : 365
     const theta = (dayOfYear / daysInYear) * Math.PI * 2 - Math.PI / 2
-    const ring = 190 + (y - minYear) * 150          // 每年一个同心环
-    const r = ring + (hash01(e.u, 1) - 0.5) * 60    // 径向抖动
-    const py = (hash01(e.u, 2) - 0.5) * 170         // 纵向散布
+    const ring = (190 + (y - minYear) * 150) * ringScale  // 每年一个同心环
+    const r = ring + (hash01(e.u, 1) - 0.5) * 60 * ringScale  // 径向抖动
+    const py = (hash01(e.u, 2) - 0.5) * 170 * ringScale   // 纵向散布
     return {
       x: Math.cos(theta) * r,
       y: py,
@@ -252,7 +258,8 @@ function draw() {
       const full = s.gold || near || (s.label && cam.zoom > 1.5)
       labelQueue.push({
         sx: it.sx, sy: it.sy, size,
-        text: full ? `${s.e.d} ${s.e.t}` : s.e.d,
+        // 金色/悬停标签只显示关键内容（截短），完整摘要留给弹窗
+        text: full ? `${s.e.d} ${s.e.t.length > 17 ? s.e.t.slice(0, 16) + '…' : s.e.t}` : s.e.d,
         gold: s.gold || near, near, full,
         priority: near ? 0 : (s.gold ? 1 : 2),
         likes: s.e.l
@@ -418,6 +425,15 @@ function resetView() {
   target.zoom = DEFAULT_VIEW.zoom
 }
 
+// 窗口尺寸变化：延迟重建星环（半径依赖视口）
+let resizeTimer = null
+function onResize() {
+  clearTimeout(resizeTimer)
+  resizeTimer = setTimeout(() => {
+    if (events.value.length) buildStars(events.value)
+  }, 250)
+}
+
 function toggle2D() {
   is2D.value = !is2D.value
   // 2D：俯视星环平面；3D：回到默认斜视角
@@ -433,8 +449,10 @@ onMounted(async () => {
   cvs.addEventListener('pointercancel', onPointerUp)
   cvs.addEventListener('wheel', onWheel, { passive: false })
   window.addEventListener('keydown', onKeydown)
+  window.addEventListener('resize', onResize)
 
-  const res = await fetch('/weibo/starmap_events.json')
+  // 加时间戳防缓存：数据更新后浏览器立即拿到最新版
+  const res = await fetch('/weibo/starmap_events.json?t=' + Date.now())
   const list = await res.json()
   events.value = list
   buildStars(list)
@@ -444,7 +462,9 @@ onMounted(async () => {
 onBeforeUnmount(() => {
   running = false
   cancelAnimationFrame(rafId)
+  clearTimeout(resizeTimer)
   window.removeEventListener('keydown', onKeydown)
+  window.removeEventListener('resize', onResize)
 })
 </script>
 
@@ -574,7 +594,7 @@ onBeforeUnmount(() => {
   z-index: 5;
 }
 
-/* ===== 坐标详情弹窗（紫色科幻风） ===== */
+/* ===== 坐标详情弹窗（黑底蓝紫星环风） ===== */
 .coord-modal {
   position: absolute;
   inset: 0;
@@ -582,56 +602,116 @@ onBeforeUnmount(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(8, 2, 24, 0.62);
+  background: rgba(3, 4, 9, 0.72);
   backdrop-filter: blur(6px);
 }
 
+/* ===== 星环面板：黑深空底 + 蓝白笔触环带 + 紫晕（参考星云艺术图） ===== */
 .coord-panel {
   position: relative;
   width: min(480px, 88vw);
   padding: 26px 30px 30px;
-  background: linear-gradient(165deg, #221046 0%, #150a30 55%, #0d0522 100%);
-  border: 1px solid rgba(168, 85, 247, 0.55);
+  background:
+    radial-gradient(120% 90% at 78% 12%, rgba(56, 92, 190, 0.30), transparent 55%),
+    radial-gradient(110% 85% at 12% 92%, rgba(120, 81, 169, 0.28), transparent 58%),
+    radial-gradient(90% 70% at 50% 55%, rgba(30, 50, 110, 0.18), transparent 70%),
+    #05070d;
+  border: 1px solid rgba(150, 175, 225, 0.28);
   box-shadow:
-    0 0 60px rgba(147, 51, 234, 0.4),
-    0 0 120px rgba(88, 28, 135, 0.35),
-    inset 0 0 32px rgba(147, 51, 234, 0.12);
+    0 0 60px rgba(40, 70, 160, 0.35),
+    0 0 130px rgba(90, 70, 160, 0.22),
+    inset 0 0 46px rgba(20, 34, 80, 0.45);
   overflow: hidden;
 }
 
-/* HUD 四角括号 */
-.corner {
+/* 蓝白笔触环带：三层椭圆弧线，错角旋转模拟星环 */
+.ring {
   position: absolute;
-  width: 18px;
-  height: 18px;
+  left: 50%;
+  top: 52%;
+  border-radius: 50%;
   pointer-events: none;
 }
-.corner.tl { top: 6px; left: 6px; border-top: 2px solid #c084fc; border-left: 2px solid #c084fc; }
-.corner.tr { top: 6px; right: 6px; border-top: 2px solid #c084fc; border-right: 2px solid #c084fc; }
-.corner.bl { bottom: 6px; left: 6px; border-bottom: 2px solid #c084fc; border-left: 2px solid #c084fc; }
-.corner.br { bottom: 6px; right: 6px; border-bottom: 2px solid #c084fc; border-right: 2px solid #c084fc; }
-
-/* 扫描线 */
-.coord-scan {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: repeating-linear-gradient(
-    0deg,
-    rgba(192, 132, 252, 0.04) 0px,
-    rgba(192, 132, 252, 0.04) 1px,
-    transparent 1px,
-    transparent 4px
-  );
-  animation: scanDrift 8s linear infinite;
+.ring.r1 {
+  width: 150%;
+  height: 54%;
+  transform: translate(-50%, -50%) rotate(-24deg);
+  border: 2px solid rgba(226, 236, 255, 0.34);
+  border-left-color: rgba(226, 236, 255, 0.06);
+  border-bottom-color: transparent;
+  filter: blur(0.4px) drop-shadow(0 0 6px rgba(160, 190, 255, 0.55));
+}
+.ring.r2 {
+  width: 128%;
+  height: 44%;
+  transform: translate(-52%, -46%) rotate(-26deg);
+  border: 5px solid rgba(150, 180, 245, 0.16);
+  border-top-color: rgba(235, 242, 255, 0.55);
+  border-right-color: transparent;
+  filter: blur(1.6px);
+}
+.ring.r3 {
+  width: 172%;
+  height: 62%;
+  transform: translate(-48%, -56%) rotate(-22deg);
+  border: 1px solid rgba(178, 146, 235, 0.20);
+  border-bottom-color: rgba(200, 160, 250, 0.42);
+  border-top-color: transparent;
+  filter: blur(0.6px);
 }
 
-@keyframes scanDrift {
-  from { background-position-y: 0; }
-  to { background-position-y: 40px; }
+/* 中央亮笔触高光带 */
+.brush {
+  position: absolute;
+  left: -12%;
+  top: 46%;
+  width: 124%;
+  height: 16%;
+  transform: rotate(-24deg);
+  background: linear-gradient(90deg, transparent, rgba(210, 226, 255, 0.20) 30%, rgba(240, 246, 255, 0.34) 52%, rgba(160, 190, 250, 0.16) 74%, transparent);
+  filter: blur(9px);
+  pointer-events: none;
+}
+
+/* 喷溅星尘 */
+.dust {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  top: 18%;
+  left: 22%;
+  background: rgba(235, 242, 255, 0.9);
+  box-shadow:
+    34px 12px 0 -0.5px rgba(235, 242, 255, 0.75),
+    88px -6px 0 0.5px rgba(200, 216, 250, 0.6),
+    150px 26px 0 -0.8px rgba(235, 242, 255, 0.8),
+    210px 8px 0 0 rgba(190, 205, 245, 0.5),
+    262px 30px 0 -0.5px rgba(235, 242, 255, 0.7),
+    306px 14px 0 0.5px rgba(205, 220, 252, 0.55),
+    18px 52px 0 0.5px rgba(220, 232, 255, 0.5),
+    246px 74px 0 -0.6px rgba(235, 242, 255, 0.65),
+    320px 92px 0 0 rgba(200, 216, 250, 0.5),
+    -8px 120px 0 0.5px rgba(225, 236, 255, 0.55),
+    60px 168px 0 -0.5px rgba(235, 242, 255, 0.6),
+    288px 172px 0 0.5px rgba(205, 218, 250, 0.5),
+    332px 210px 0 -0.8px rgba(235, 242, 255, 0.7),
+    30px 236px 0 0 rgba(210, 224, 252, 0.45),
+    170px 246px 0 -0.5px rgba(235, 242, 255, 0.55),
+    108px -14px 0 -0.4px rgba(196, 160, 248, 0.7),
+    284px 54px 0 -0.4px rgba(196, 160, 248, 0.6),
+    84px 122px 0 -0.6px rgba(196, 160, 248, 0.55);
+  pointer-events: none;
+  animation: dustTwinkle 3.4s ease-in-out infinite;
+}
+
+@keyframes dustTwinkle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
 }
 
 .coord-topbar {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -639,11 +719,11 @@ onBeforeUnmount(() => {
 }
 
 .coord-status {
-  color: rgba(216, 180, 254, 0.85);
+  color: #d4bdf5;
   font-size: 11px;
   letter-spacing: 3px;
   font-family: "Courier New", monospace;
-  text-shadow: 0 0 10px rgba(192, 132, 252, 0.6);
+  text-shadow: 0 0 10px rgba(178, 130, 250, 0.65);
   animation: statusBlink 2.2s ease-in-out infinite;
 }
 
@@ -653,9 +733,10 @@ onBeforeUnmount(() => {
 }
 
 .coord-close {
-  background: none;
-  border: 1px solid rgba(168, 85, 247, 0.4);
-  color: rgba(216, 180, 254, 0.9);
+  position: relative;
+  background: rgba(8, 12, 24, 0.6);
+  border: 1px solid rgba(178, 130, 250, 0.45);
+  color: #d4bdf5;
   width: 28px;
   height: 28px;
   cursor: pointer;
@@ -664,66 +745,79 @@ onBeforeUnmount(() => {
 }
 
 .coord-close:hover {
-  background: rgba(168, 85, 247, 0.2);
-  box-shadow: 0 0 14px rgba(168, 85, 247, 0.5);
+  background: rgba(140, 90, 230, 0.28);
+  box-shadow: 0 0 14px rgba(168, 120, 250, 0.55);
 }
 
 .coord-date {
+  position: relative;
   font-family: "Courier New", monospace;
   font-size: clamp(30px, 5vw, 42px);
   font-weight: 700;
   letter-spacing: 8px;
-  color: #e9d5ff;
+  color: #dcc6ff;
   text-shadow:
-    0 0 18px rgba(192, 132, 252, 0.9),
-    0 0 40px rgba(147, 51, 234, 0.5);
+    0 0 18px rgba(178, 128, 252, 0.95),
+    0 0 46px rgba(140, 84, 240, 0.55);
   text-align: center;
 }
 
 .coord-divider {
+  position: relative;
   height: 1px;
   margin: 20px 0;
-  background: linear-gradient(90deg, transparent, rgba(192, 132, 252, 0.7), transparent);
+  background: linear-gradient(90deg, transparent, rgba(190, 145, 250, 0.75), rgba(150, 110, 240, 0.4), transparent);
 }
 
+/* 事件文字：最多三行 */
 .coord-title {
+  position: relative;
   margin: 0 0 16px;
-  color: #ede9fe;
+  color: #e6d8fc;
   font-size: 16px;
   line-height: 1.75;
   text-align: center;
   word-break: break-all;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-shadow: 0 0 12px rgba(160, 110, 245, 0.35);
 }
 
 .coord-meta {
+  position: relative;
   text-align: center;
-  color: #f0abfc;
+  color: #c9a5f7;
   font-size: 14px;
   letter-spacing: 2px;
   margin-bottom: 26px;
+  text-shadow: 0 0 10px rgba(168, 120, 250, 0.45);
 }
 
 .coord-meta-sub {
-  color: rgba(216, 180, 254, 0.5);
+  color: rgba(200, 170, 244, 0.55);
   font-size: 12px;
   margin-left: 6px;
 }
 
 .coord-link {
+  position: relative;
   display: block;
   text-align: center;
   padding: 13px 0;
-  color: #fff;
+  color: #f6efff;
   font-size: 15px;
   letter-spacing: 5px;
   text-decoration: none;
-  background: linear-gradient(90deg, #7c3aed, #a855f7);
-  box-shadow: 0 0 24px rgba(147, 51, 234, 0.55);
+  background: linear-gradient(90deg, rgba(118, 68, 208, 0.94), rgba(158, 100, 238, 0.94));
+  border: 1px solid rgba(200, 160, 250, 0.4);
+  box-shadow: 0 0 24px rgba(140, 84, 240, 0.5);
   transition: all 0.25s;
 }
 
 .coord-link:hover {
-  box-shadow: 0 0 40px rgba(168, 85, 247, 0.85);
+  box-shadow: 0 0 40px rgba(168, 120, 250, 0.8);
   filter: brightness(1.15);
 }
 

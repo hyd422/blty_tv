@@ -56,6 +56,7 @@ const boilerplate = new Set([...lineFreq.entries()].filter(([, n]) => n > totalP
 
 function pickTitle(text) {
   const lines = text.split('\n').map(l => l.trim()).filter(Boolean)
+  const kept = []
   let fallback = ''
   for (let l of lines) {
     if (/^20\d{2}[.\-/年]\s*\d{1,2}[.\-/月]\s*\d{1,2}日?$/.test(l)) continue
@@ -66,20 +67,23 @@ function pickTitle(text) {
     if (boilerplate.has(l)) continue
     // 带 # 的话题词条不展示
     if (l.includes('#')) continue
-    // 纯表情/符号标题不展示（至少含一个中文、字母或数字）
+    // 纯表情/符号行不展示（至少含一个中文、字母或数字）
     if (!/[\u4e00-\u9fa5a-zA-Z0-9]/.test(l)) continue
-    // 优先返回信息行；同时记录第一条非样板行作为兜底
     if (!fallback) fallback = l
-    if (l.length >= 4) return l.length > 18 ? l.slice(0, 17) + '…' : l
+    kept.push(l)
   }
-  if (fallback) return fallback.length > 18 ? fallback.slice(0, 17) + '…' : fallback
-  return ''
+  // 合并多行为完整摘要（弹窗最多展示三行）
+  let out = kept.join(' ')
+  if (out.replace(/ /g, '').length < 8 && fallback) out = fallback
+  if (!out) return ''
+  out = out.replace(/\s+/g, ' ').trim()
+  return out.length > 60 ? out.slice(0, 59).replace(/\s*\S*$/, '') + '…' : out
 }
 
 const events = []
 const seen = new Set()
-// 含这些关键词的内容（周边/追加/🍊相关）整条不展示
-const BLOCKED = /🍊|周边|追加/
+// 含这些关键词的内容（周边/追加/金额/发货/pk/声明/公告/道歉 相关）整条不展示
+const BLOCKED = /🍊|周边|追加|金额|发货|pk|声明|公告|道歉/i
 for (const mb of allPosts) {
   const text = cleanText(mb.text)
   if (BLOCKED.test(text)) continue
